@@ -2,12 +2,14 @@ use chrono::{DateTime, Utc};
 use rand::{Rng, SeedableRng, rngs::StdRng};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::sync::OnceLock;
 use uuid::Uuid;
 
 pub const MAX_AGENTS: usize = 100;
 pub const DEFAULT_TOWER_ID: &str = "tower-1";
+const FLOOR_TEMPLATE_CATALOG_JSON: &str = include_str!("../assets/templates/floor_templates_v1.json");
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[serde(rename_all = "snake_case")]
 pub enum FloorType {
     Residential,
@@ -15,6 +17,123 @@ pub enum FloorType {
     Service,
     Utility,
 }
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Default)]
+#[serde(rename_all = "snake_case")]
+pub enum FloorStage {
+    #[default]
+    Seed,
+    Growing,
+    Mature,
+    Overloaded,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+struct FloorTemplateCatalog {
+    #[serde(default)]
+    settings: FloorTemplateSettings,
+    #[serde(default)]
+    templates: Vec<FloorTemplateSpec>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+struct FloorTemplateSpec {
+    template_id: String,
+    floor_type: FloorType,
+    stage: FloorStage,
+    capacity_multiplier_pct: u16,
+    upkeep_multiplier_pct: i32,
+    rent_curve_delta: i32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+struct FloorTemplateSettings {
+    #[serde(default)]
+    stage_thresholds: StageThresholdSettings,
+    #[serde(default)]
+    expansion: ExpansionSettings,
+}
+
+impl Default for FloorTemplateSettings {
+    fn default() -> Self {
+        Self {
+            stage_thresholds: StageThresholdSettings::default(),
+            expansion: ExpansionSettings::default(),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+struct StageThresholdSettings {
+    #[serde(default = "default_growing_min_score")]
+    growing_min_score: u8,
+    #[serde(default = "default_mature_min_score")]
+    mature_min_score: u8,
+    #[serde(default = "default_overloaded_min_score")]
+    overloaded_min_score: u8,
+}
+
+impl Default for StageThresholdSettings {
+    fn default() -> Self {
+        Self {
+            growing_min_score: default_growing_min_score(),
+            mature_min_score: default_mature_min_score(),
+            overloaded_min_score: default_overloaded_min_score(),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+struct ExpansionSettings {
+    #[serde(default = "default_max_floors")]
+    max_floors: usize,
+    #[serde(default = "default_build_cooldown_ticks")]
+    build_cooldown_ticks: u64,
+    #[serde(default = "default_min_avg_stage_score")]
+    min_avg_stage_score: u8,
+}
+
+impl Default for ExpansionSettings {
+    fn default() -> Self {
+        Self {
+            max_floors: default_max_floors(),
+            build_cooldown_ticks: default_build_cooldown_ticks(),
+            min_avg_stage_score: default_min_avg_stage_score(),
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+struct FloorTemplateCatalogResolved {
+    settings: FloorTemplateSettings,
+    templates: Vec<FloorTemplateSpec>,
+}
+
+fn default_growing_min_score() -> u8 {
+    35
+}
+
+fn default_mature_min_score() -> u8 {
+    65
+}
+
+fn default_overloaded_min_score() -> u8 {
+    90
+}
+
+fn default_max_floors() -> usize {
+    8
+}
+
+fn default_build_cooldown_ticks() -> u64 {
+    120
+}
+
+fn default_min_avg_stage_score() -> u8 {
+    30
+}
+
+static FLOOR_TEMPLATE_CATALOG: OnceLock<FloorTemplateCatalogResolved> = OnceLock::new();
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct FloorTileMap {
@@ -68,17 +187,136 @@ pub struct Agent {
     pub debt_ticks: u8,
 }
 
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]
+#[serde(rename_all = "snake_case")]
+pub enum ZoneKind {
+    WorkArea,
+    BreakRoom,
+    Reception,
+    Utility,
+    Corridor,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct OfficeZone {
+    pub kind: ZoneKind,
+    pub x_min: u8,
+    pub y_min: u8,
+    pub x_max: u8,
+    pub y_max: u8,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct FurniturePlacement {
+    pub asset_id: String,
+    pub x: u8,
+    pub y: u8,
+    pub zone: ZoneKind,
+    pub placed_at_tick: u64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq, Eq)]
+pub struct OfficeLayout {
+    #[serde(default)]
+    pub furniture: Vec<FurniturePlacement>,
+    #[serde(default)]
+    pub zones: Vec<OfficeZone>,
+    #[serde(default)]
+    pub max_slots: u8,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(tag = "kind")]
+pub enum ScriptConfig {
+    #[serde(rename = "layout_bias")]
+    LayoutBias { work_pct: f32, break_pct: f32 },
+    #[serde(rename = "pipeline_install")]
+    PipelineInstall { pipeline_kind: PipelineKind },
+    #[serde(rename = "furniture_upgrade")]
+    FurnitureUpgrade { tier: u8 },
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct ManagerScript {
+    pub script_id: String,
+    pub installed_at_tick: u64,
+    pub config: ScriptConfig,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]
+#[serde(rename_all = "snake_case")]
+pub enum PipelineKind {
+    CiCd,
+    MailRoom,
+    FoodService,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct PipelineStage {
+    pub name: String,
+    pub asset_id: String,
+    pub x: u8,
+    pub y: u8,
+    pub duration_ticks: u16,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct Pipeline {
+    pub kind: PipelineKind,
+    pub stages: Vec<PipelineStage>,
+    pub current_stage_idx: usize,
+    pub progress_ticks: u16,
+    pub total_completions: u64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
+pub struct FloorManager {
+    #[serde(default)]
+    pub age_ticks: u64,
+    #[serde(default)]
+    pub placement_budget: u16,
+    #[serde(default)]
+    pub layout: OfficeLayout,
+    #[serde(default)]
+    pub scripts: Vec<ManagerScript>,
+    #[serde(default)]
+    pub pipeline: Option<Pipeline>,
+    #[serde(default)]
+    pub construction_fx: Vec<ConstructionFx>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct ConstructionFx {
+    pub x: u8,
+    pub y: u8,
+    pub expires_at_tick: u64,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Floor {
     pub id: Uuid,
     pub name: String,
     pub floor_type: FloorType,
+    #[serde(default)]
+    pub template_id: String,
+    #[serde(default)]
+    pub stage: FloorStage,
+    #[serde(default)]
+    pub stage_score: u8,
+    #[serde(default)]
+    pub base_capacity: u16,
+    #[serde(default)]
+    pub base_upkeep: i32,
+    #[serde(default)]
+    pub base_rent_curve: i32,
     pub capacity: u16,
     pub occupancy: u16,
     pub upkeep: i32,
     pub rent_curve: i32,
     #[serde(default)]
     pub tilemap: FloorTileMap,
+    #[serde(default)]
+    pub manager: FloorManager,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -99,11 +337,45 @@ pub struct EconomyTick {
     pub unmet_need_penalty: i64,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(tag = "action_type")]
+pub enum DirectiveAction {
+    #[serde(rename = "set_layout_bias")]
+    SetLayoutBias { work_pct: f32, break_pct: f32 },
+    #[serde(rename = "install_script")]
+    InstallScript { script_id: String, config: ScriptConfig },
+    #[serde(rename = "install_pipeline")]
+    InstallPipeline { kind: PipelineKind },
+    #[serde(rename = "upgrade_furniture")]
+    UpgradeFurniture,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct OperatorDirective {
+    pub target_floor_id: Uuid,
+    pub action: DirectiveAction,
+    pub issued_at_tick: u64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
+pub struct OperatorAgent {
+    #[serde(default)]
+    pub budget: i32,
+    #[serde(default)]
+    pub next_review_tick: u64,
+    #[serde(default)]
+    pub pending_directives: Vec<OperatorDirective>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TowerState {
     pub tower_id: String,
     pub tick: u64,
     pub started_at: DateTime<Utc>,
+    #[serde(default)]
+    pub next_floor_build_tick: u64,
+    #[serde(default)]
+    pub expansion_count: u32,
     pub agents: Vec<Agent>,
     pub floors: Vec<Floor>,
     pub leases: HashMap<Uuid, Lease>,
@@ -111,6 +383,8 @@ pub struct TowerState {
     pub alerts: Vec<Alert>,
     pub policies: Vec<Policy>,
     pub active_signals: Vec<Signal>,
+    #[serde(default)]
+    pub operator: OperatorAgent,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -476,6 +750,18 @@ fn build_floor_tilemap(floor_type: FloorType) -> FloorTileMap {
 
 pub fn ensure_floor_tilemaps(state: &mut TowerState) {
     for floor in &mut state.floors {
+        if floor.template_id.trim().is_empty() {
+            floor.template_id = default_floor_template_id(floor.floor_type, floor.stage);
+        }
+        if floor.base_capacity == 0 {
+            floor.base_capacity = floor.capacity.max(1);
+        }
+        if floor.base_upkeep == 0 {
+            floor.base_upkeep = floor.upkeep.max(1);
+        }
+        if floor.base_rent_curve == 0 {
+            floor.base_rent_curve = floor.rent_curve.max(1);
+        }
         let expected = floor.tilemap.width as usize * floor.tilemap.height as usize;
         if floor.tilemap.width == 0
             || floor.tilemap.height == 0
@@ -497,31 +783,52 @@ pub fn initialize_tower(seed: u64) -> TowerState {
         id: residential_id,
         name: "Residences".to_string(),
         floor_type: FloorType::Residential,
+        template_id: "residential_seed_v1".to_string(),
+        stage: FloorStage::Seed,
+        stage_score: 0,
+        base_capacity: 120,
+        base_upkeep: 30,
+        base_rent_curve: 18,
         capacity: 120,
         occupancy: MAX_AGENTS as u16,
         upkeep: 30,
         rent_curve: 18,
         tilemap: build_floor_tilemap(FloorType::Residential),
+        manager: FloorManager::default(),
     });
     floors.push(Floor {
         id: service_id,
         name: "Food Court".to_string(),
         floor_type: FloorType::Service,
+        template_id: "service_seed_v1".to_string(),
+        stage: FloorStage::Seed,
+        stage_score: 0,
+        base_capacity: 80,
+        base_upkeep: 22,
+        base_rent_curve: 10,
         capacity: 80,
         occupancy: 0,
         upkeep: 22,
         rent_curve: 10,
         tilemap: build_floor_tilemap(FloorType::Service),
+        manager: FloorManager::default(),
     });
     floors.push(Floor {
         id: commercial_id,
         name: "Work Hub".to_string(),
         floor_type: FloorType::Commercial,
+        template_id: "commercial_seed_v1".to_string(),
+        stage: FloorStage::Seed,
+        stage_score: 0,
+        base_capacity: 100,
+        base_upkeep: 40,
+        base_rent_curve: 12,
         capacity: 100,
         occupancy: 0,
         upkeep: 40,
         rent_curve: 12,
         tilemap: build_floor_tilemap(FloorType::Commercial),
+        manager: FloorManager::default(),
     });
 
     let mut leases = HashMap::new();
@@ -567,6 +874,8 @@ pub fn initialize_tower(seed: u64) -> TowerState {
         tower_id: DEFAULT_TOWER_ID.to_string(),
         tick: 0,
         started_at: Utc::now(),
+        next_floor_build_tick: 120,
+        expansion_count: 0,
         agents,
         floors,
         leases,
@@ -579,13 +888,16 @@ pub fn initialize_tower(seed: u64) -> TowerState {
         alerts: vec![],
         policies: vec![],
         active_signals: vec![],
+        operator: OperatorAgent::default(),
     };
     ensure_floor_tilemaps(&mut state);
+    refresh_floor_progression(&mut state, &mut vec![]);
     state
 }
 
 pub fn run_tick(state: &mut TowerState) -> TickResult {
     state.tick += 1;
+    ensure_floor_tilemaps(state);
     state
         .active_signals
         .retain(|s| s.expires_at_tick >= state.tick);
@@ -731,6 +1043,27 @@ pub fn run_tick(state: &mut TowerState) -> TickResult {
     }
 
     state.economy = econ;
+
+    // Floor manager ticks
+    for floor in &mut state.floors {
+        tick_floor_manager(floor, state.tick, &mut new_events);
+    }
+
+    // Operator review + apply directives
+    operator_review(state);
+    apply_pending_directives(state);
+
+    refresh_floor_progression(state, &mut new_events);
+
+    // Enforce furniture cap after stage changes (stages can regress)
+    for floor in &mut state.floors {
+        let max = max_slots_for_stage(floor.floor_type, floor.stage) as usize;
+        while floor.manager.layout.furniture.len() > max {
+            floor.manager.layout.furniture.pop();
+        }
+    }
+
+    try_expand_tower(state, &mut new_events);
     state.alerts = dedupe_alerts(alerts.clone());
     for alert in &state.alerts {
         new_events.push(SimEvent {
@@ -761,6 +1094,303 @@ pub fn run_tick(state: &mut TowerState) -> TickResult {
         alerts: state.alerts.clone(),
         decision_traces,
     }
+}
+
+fn fallback_floor_template_id(floor_type: FloorType, stage: FloorStage) -> &'static str {
+    match (floor_type, stage) {
+        (FloorType::Residential, FloorStage::Seed) => "residential_seed_v1",
+        (FloorType::Residential, FloorStage::Growing) => "residential_growing_v1",
+        (FloorType::Residential, FloorStage::Mature) => "residential_mature_v1",
+        (FloorType::Residential, FloorStage::Overloaded) => "residential_overloaded_v1",
+        (FloorType::Commercial, FloorStage::Seed) => "commercial_seed_v1",
+        (FloorType::Commercial, FloorStage::Growing) => "commercial_growing_v1",
+        (FloorType::Commercial, FloorStage::Mature) => "commercial_mature_v1",
+        (FloorType::Commercial, FloorStage::Overloaded) => "commercial_overloaded_v1",
+        (FloorType::Service, FloorStage::Seed) => "service_seed_v1",
+        (FloorType::Service, FloorStage::Growing) => "service_growing_v1",
+        (FloorType::Service, FloorStage::Mature) => "service_mature_v1",
+        (FloorType::Service, FloorStage::Overloaded) => "service_overloaded_v1",
+        (FloorType::Utility, FloorStage::Seed) => "utility_seed_v1",
+        (FloorType::Utility, FloorStage::Growing) => "utility_growing_v1",
+        (FloorType::Utility, FloorStage::Mature) => "utility_mature_v1",
+        (FloorType::Utility, FloorStage::Overloaded) => "utility_overloaded_v1",
+    }
+}
+
+fn floor_template_catalog() -> &'static FloorTemplateCatalogResolved {
+    FLOOR_TEMPLATE_CATALOG.get_or_init(|| {
+        serde_json::from_str::<FloorTemplateCatalog>(FLOOR_TEMPLATE_CATALOG_JSON)
+            .map(|catalog| FloorTemplateCatalogResolved {
+                settings: catalog.settings,
+                templates: catalog.templates,
+            })
+            .unwrap_or_else(|_| FloorTemplateCatalogResolved {
+                settings: FloorTemplateSettings::default(),
+                templates: vec![],
+            })
+    })
+}
+
+fn find_floor_template(floor_type: FloorType, stage: FloorStage) -> Option<&'static FloorTemplateSpec> {
+    floor_template_catalog()
+        .templates
+        .iter()
+        .find(|spec| spec.floor_type == floor_type && spec.stage == stage)
+}
+
+fn floor_template_settings() -> &'static FloorTemplateSettings {
+    &floor_template_catalog().settings
+}
+
+fn default_floor_template_id(floor_type: FloorType, stage: FloorStage) -> String {
+    find_floor_template(floor_type, stage)
+        .map(|spec| spec.template_id.clone())
+        .unwrap_or_else(|| fallback_floor_template_id(floor_type, stage).to_string())
+}
+
+fn stage_capacity_multiplier_pct(stage: FloorStage) -> u16 {
+    match stage {
+        FloorStage::Seed => 100,
+        FloorStage::Growing => 112,
+        FloorStage::Mature => 125,
+        FloorStage::Overloaded => 108,
+    }
+}
+
+fn stage_rent_curve_delta(stage: FloorStage) -> i32 {
+    match stage {
+        FloorStage::Seed => 0,
+        FloorStage::Growing => 1,
+        FloorStage::Mature => 3,
+        FloorStage::Overloaded => 2,
+    }
+}
+
+fn stage_upkeep_multiplier_pct(stage: FloorStage) -> i32 {
+    match stage {
+        FloorStage::Seed => 100,
+        FloorStage::Growing => 106,
+        FloorStage::Mature => 114,
+        FloorStage::Overloaded => 130,
+    }
+}
+
+fn stage_from_score(score: u8) -> FloorStage {
+    let thresholds = &floor_template_settings().stage_thresholds;
+    if score >= thresholds.overloaded_min_score {
+        FloorStage::Overloaded
+    } else if score >= thresholds.mature_min_score {
+        FloorStage::Mature
+    } else if score >= thresholds.growing_min_score {
+        FloorStage::Growing
+    } else {
+        FloorStage::Seed
+    }
+}
+
+fn floor_stage_label(stage: FloorStage) -> &'static str {
+    match stage {
+        FloorStage::Seed => "seed",
+        FloorStage::Growing => "growing",
+        FloorStage::Mature => "mature",
+        FloorStage::Overloaded => "overloaded",
+    }
+}
+
+fn refresh_floor_progression(state: &mut TowerState, out_events: &mut Vec<SimEvent>) {
+    let mut assigned_agents: HashMap<Uuid, usize> = HashMap::new();
+    let mut mood_by_floor: HashMap<Uuid, (i64, usize)> = HashMap::new();
+    for agent in &state.agents {
+        *assigned_agents.entry(agent.location_floor_id).or_default() += 1;
+        let entry = mood_by_floor.entry(agent.location_floor_id).or_default();
+        entry.0 += i64::from(agent.mood.clamp(0, 100));
+        entry.1 += 1;
+    }
+    let critical_alerts = state
+        .alerts
+        .iter()
+        .filter(|a| a.severity == "critical")
+        .count() as i32;
+    let unmet_penalty = state.economy.unmet_need_penalty.clamp(0, 120) as i32;
+
+    for floor in &mut state.floors {
+        let occupants = assigned_agents.get(&floor.id).copied().unwrap_or_default();
+        floor.occupancy = occupants.min(u16::MAX as usize) as u16;
+        let base_capacity = floor.base_capacity.max(1) as i32;
+        let load_score = ((occupants as i32 * 100) / base_capacity).clamp(0, 100);
+        let avg_mood = mood_by_floor
+            .get(&floor.id)
+            .map(|(sum, count)| (*sum as f32 / (*count as f32)).round() as i32)
+            .unwrap_or(70);
+        let mood_stress = ((100 - avg_mood).clamp(0, 100) / 3).clamp(0, 25);
+        let alert_stress = (critical_alerts * 4).clamp(0, 20);
+        let need_stress = (unmet_penalty / 12).clamp(0, 10);
+        let stage_score = (load_score + mood_stress + alert_stress + need_stress).clamp(0, 100) as u8;
+        let next_stage = stage_from_score(stage_score);
+        if next_stage != floor.stage {
+            out_events.push(SimEvent {
+                id: Uuid::new_v4(),
+                tick: state.tick,
+                timestamp: Utc::now(),
+                category: "floor_progression".to_string(),
+                severity: if next_stage > floor.stage {
+                    "info".to_string()
+                } else {
+                    "low".to_string()
+                },
+                message: format!(
+                    "{} transitioned {} -> {}",
+                    floor.name,
+                    floor_stage_label(floor.stage),
+                    floor_stage_label(next_stage)
+                ),
+                refs: vec![floor.id.to_string(), floor.name.clone(), floor.template_id.clone()],
+            });
+        }
+        floor.stage = next_stage;
+        floor.stage_score = stage_score;
+        let template = find_floor_template(floor.floor_type, floor.stage);
+        floor.template_id = template
+            .map(|spec| spec.template_id.clone())
+            .unwrap_or_else(|| default_floor_template_id(floor.floor_type, floor.stage));
+        let capacity_pct = template
+            .map(|spec| spec.capacity_multiplier_pct)
+            .unwrap_or_else(|| stage_capacity_multiplier_pct(floor.stage));
+        let upkeep_pct = template
+            .map(|spec| spec.upkeep_multiplier_pct)
+            .unwrap_or_else(|| stage_upkeep_multiplier_pct(floor.stage));
+        let rent_delta = template
+            .map(|spec| spec.rent_curve_delta)
+            .unwrap_or_else(|| stage_rent_curve_delta(floor.stage));
+        floor.capacity =
+            ((u32::from(floor.base_capacity.max(1)) * u32::from(capacity_pct))
+                / 100)
+                .max(1)
+                .min(u32::from(u16::MAX)) as u16;
+        floor.upkeep = ((floor.base_upkeep.max(1) * upkeep_pct) / 100).max(1);
+        floor.rent_curve = (floor.base_rent_curve.max(1) + rent_delta).max(1);
+    }
+}
+
+fn seed_floor_stats_for_type(floor_type: FloorType) -> (u16, i32, i32) {
+    match floor_type {
+        FloorType::Residential => (120, 30, 18),
+        FloorType::Commercial => (90, 36, 14),
+        FloorType::Service => (70, 24, 11),
+        FloorType::Utility => (60, 28, 9),
+    }
+}
+
+fn floor_type_build_label(floor_type: FloorType) -> &'static str {
+    match floor_type {
+        FloorType::Residential => "Residences",
+        FloorType::Commercial => "Work Hub",
+        FloorType::Service => "Food Court",
+        FloorType::Utility => "Utility",
+    }
+}
+
+fn floor_type_ref_label(floor_type: FloorType) -> &'static str {
+    match floor_type {
+        FloorType::Residential => "residential",
+        FloorType::Commercial => "commercial",
+        FloorType::Service => "service",
+        FloorType::Utility => "utility",
+    }
+}
+
+fn next_expansion_floor_type(state: &TowerState) -> FloorType {
+    let mut overloaded_by_type: HashMap<FloorType, usize> = HashMap::new();
+    for floor in &state.floors {
+        if floor.stage == FloorStage::Overloaded {
+            *overloaded_by_type.entry(floor.floor_type).or_default() += 1;
+        }
+    }
+    let dominant = overloaded_by_type
+        .into_iter()
+        .max_by_key(|(_, count)| *count)
+        .map(|(floor_type, _)| floor_type)
+        .unwrap_or(FloorType::Commercial);
+    match dominant {
+        FloorType::Commercial => FloorType::Service,
+        FloorType::Service => FloorType::Utility,
+        FloorType::Utility => FloorType::Commercial,
+        FloorType::Residential => FloorType::Commercial,
+    }
+}
+
+fn try_expand_tower(state: &mut TowerState, out_events: &mut Vec<SimEvent>) {
+    let expansion = &floor_template_settings().expansion;
+    let max_floors = expansion.max_floors.max(1);
+    let build_cooldown_ticks = expansion.build_cooldown_ticks.max(1);
+    let min_avg_stage_score = f32::from(expansion.min_avg_stage_score.min(100));
+    if state.tick < state.next_floor_build_tick {
+        return;
+    }
+    if state.floors.len() >= max_floors {
+        return;
+    }
+    let overloaded = state
+        .floors
+        .iter()
+        .filter(|floor| floor.stage == FloorStage::Overloaded)
+        .count();
+    if overloaded == 0 {
+        return;
+    }
+    let avg_stage_score = if state.floors.is_empty() {
+        0.0
+    } else {
+        state
+            .floors
+            .iter()
+            .map(|floor| f32::from(floor.stage_score))
+            .sum::<f32>()
+            / state.floors.len() as f32
+    };
+    if avg_stage_score < min_avg_stage_score {
+        return;
+    }
+
+    let floor_type = next_expansion_floor_type(state);
+    let (base_capacity, base_upkeep, base_rent_curve) = seed_floor_stats_for_type(floor_type);
+    let floor = Floor {
+        id: Uuid::new_v4(),
+        name: format!(
+            "{} Annex {}",
+            floor_type_build_label(floor_type),
+            state.expansion_count + 1
+        ),
+        floor_type,
+        template_id: default_floor_template_id(floor_type, FloorStage::Seed),
+        stage: FloorStage::Seed,
+        stage_score: 0,
+        base_capacity,
+        base_upkeep,
+        base_rent_curve,
+        capacity: base_capacity,
+        occupancy: 0,
+        upkeep: base_upkeep,
+        rent_curve: base_rent_curve,
+        tilemap: build_floor_tilemap(floor_type),
+        manager: FloorManager::default(),
+    };
+    state.floors.push(floor.clone());
+    state.expansion_count = state.expansion_count.saturating_add(1);
+    state.next_floor_build_tick = state.tick.saturating_add(build_cooldown_ticks);
+    out_events.push(SimEvent {
+        id: Uuid::new_v4(),
+        tick: state.tick,
+        timestamp: Utc::now(),
+        category: "floor_construction".to_string(),
+        severity: "info".to_string(),
+        message: format!("Constructed {}", floor.name),
+        refs: vec![
+            floor.id.to_string(),
+            floor.name,
+            floor_type_ref_label(floor.floor_type).to_string(),
+        ],
+    });
 }
 
 fn decay_needs(needs: &mut Needs, modifiers: &ActiveModifiers) {
@@ -967,6 +1597,511 @@ fn modifiers_for_tick(state: &TowerState) -> ActiveModifiers {
     }
 }
 
+// --- Floor Manager, Operator, Scripts, Pipelines ---
+
+const FURNITURE_COST: u16 = 5;
+const FURNITURE_BUDGET_CAP: u16 = 30;
+const OPERATOR_REVIEW_INTERVAL: u64 = 40;
+
+const WORK_AREA_PALETTE: &[&str] = &[
+    "prop_lpc_desk_ornate",
+    "prop_lpc_laptop",
+    "prop_lpc_copy_machine",
+];
+const BREAK_ROOM_PALETTE: &[&str] = &[
+    "prop_lpc_coffee_maker",
+    "prop_lpc_water_cooler",
+    "prop_lpc_card_table",
+];
+const RECEPTION_PALETTE: &[&str] = &[
+    "prop_lpc_mailboxes",
+    "prop_lpc_bins",
+    "prop_lpc_office_portraits",
+];
+const UPGRADE_PALETTE: &[&str] = &[
+    "prop_lpc_tv_widescreen",
+    "prop_lpc_desk_ornate",
+];
+
+fn max_slots_for_stage(floor_type: FloorType, stage: FloorStage) -> u8 {
+    match (floor_type, stage) {
+        (_, FloorStage::Seed) => 2,
+        (_, FloorStage::Growing) => 4,
+        (_, FloorStage::Mature) => 6,
+        (_, FloorStage::Overloaded) => 8,
+    }
+}
+
+fn walkable_cells_for_tilemap(tilemap: &FloorTileMap) -> Vec<(u8, u8)> {
+    let width = tilemap.width;
+    let height = tilemap.height;
+    let mut cells = Vec::new();
+    for y in 0..height {
+        for x in 0..width {
+            let idx = usize::from(y) * usize::from(width) + usize::from(x);
+            let is_walkable = tilemap
+                .tiles
+                .get(idx)
+                .is_some_and(|tile| !tile.starts_with("tile_wall_"));
+            if is_walkable {
+                cells.push((x, y));
+            }
+        }
+    }
+    cells
+}
+
+fn compute_zones(
+    tilemap: &FloorTileMap,
+    walkable_cells: &[(u8, u8)],
+    layout_bias: Option<(f32, f32)>,
+) -> Vec<OfficeZone> {
+    let w = tilemap.width;
+    let h = tilemap.height;
+    if w < 3 || h < 3 {
+        let zone = OfficeZone {
+            kind: ZoneKind::WorkArea,
+            x_min: 0,
+            y_min: 0,
+            x_max: w.saturating_sub(1),
+            y_max: h.saturating_sub(1),
+        };
+        if walkable_cells.iter().any(|&(cx, cy)| {
+            cx >= zone.x_min && cx <= zone.x_max && cy >= zone.y_min && cy <= zone.y_max
+        }) {
+            return vec![zone];
+        } else {
+            return vec![];
+        }
+    }
+    // work_pct controls how much vertical space WorkArea gets (top portion)
+    // break_pct controls how much horizontal space BreakRoom gets (bottom-left portion)
+    let (work_pct, break_pct) = layout_bias.unwrap_or((0.5, 0.5));
+    let mid_y = (h as f32 * work_pct).round().max(2.0).min((h - 2) as f32) as u8;
+    let mid_x = (w as f32 * break_pct).round().max(2.0).min((w - 2) as f32) as u8;
+    let candidates = vec![
+        OfficeZone {
+            kind: ZoneKind::WorkArea,
+            x_min: 1,
+            y_min: 1,
+            x_max: w.saturating_sub(2),
+            y_max: mid_y.saturating_sub(1),
+        },
+        OfficeZone {
+            kind: ZoneKind::BreakRoom,
+            x_min: 1,
+            y_min: mid_y + 1,
+            x_max: mid_x.saturating_sub(1),
+            y_max: h.saturating_sub(2),
+        },
+        OfficeZone {
+            kind: ZoneKind::Reception,
+            x_min: mid_x + 1,
+            y_min: mid_y + 1,
+            x_max: w.saturating_sub(2),
+            y_max: h.saturating_sub(2),
+        },
+        OfficeZone {
+            kind: ZoneKind::Corridor,
+            x_min: mid_x.saturating_sub(1),
+            y_min: 0,
+            x_max: mid_x,
+            y_max: h.saturating_sub(1),
+        },
+    ];
+    candidates
+        .into_iter()
+        .filter(|zone| {
+            walkable_cells.iter().any(|&(cx, cy)| {
+                cx >= zone.x_min && cx <= zone.x_max && cy >= zone.y_min && cy <= zone.y_max
+            })
+        })
+        .collect()
+}
+
+fn palette_for_zone(zone: ZoneKind, upgrade_tier: u8) -> &'static [&'static str] {
+    if upgrade_tier > 0 {
+        return UPGRADE_PALETTE;
+    }
+    match zone {
+        ZoneKind::WorkArea => WORK_AREA_PALETTE,
+        ZoneKind::BreakRoom => BREAK_ROOM_PALETTE,
+        ZoneKind::Reception => RECEPTION_PALETTE,
+        ZoneKind::Utility => WORK_AREA_PALETTE,
+        ZoneKind::Corridor => WORK_AREA_PALETTE,
+    }
+}
+
+fn cells_in_zone(zone: &OfficeZone) -> Vec<(u8, u8)> {
+    let mut cells = Vec::new();
+    for y in zone.y_min..=zone.y_max {
+        for x in zone.x_min..=zone.x_max {
+            cells.push((x, y));
+        }
+    }
+    cells
+}
+
+fn upgrade_tier_from_scripts(scripts: &[ManagerScript]) -> u8 {
+    scripts
+        .iter()
+        .filter_map(|s| match &s.config {
+            ScriptConfig::FurnitureUpgrade { tier } => Some(*tier),
+            _ => None,
+        })
+        .max()
+        .unwrap_or(0)
+}
+
+fn layout_bias_from_scripts(scripts: &[ManagerScript]) -> Option<(f32, f32)> {
+    scripts.iter().rev().find_map(|s| match &s.config {
+        ScriptConfig::LayoutBias { work_pct, break_pct } => Some((*work_pct, *break_pct)),
+        _ => None,
+    })
+}
+
+pub fn tick_floor_manager(floor: &mut Floor, tick: u64, new_events: &mut Vec<SimEvent>) {
+    let mgr = &mut floor.manager;
+    mgr.age_ticks += 1;
+    mgr.placement_budget = (mgr.placement_budget + 1).min(FURNITURE_BUDGET_CAP);
+
+    // Expire construction FX
+    mgr.construction_fx.retain(|fx| fx.expires_at_tick > tick);
+
+    // Recompute zones (cheap, ensures layout bias changes take effect)
+    let walkable = walkable_cells_for_tilemap(&floor.tilemap);
+    let bias = layout_bias_from_scripts(&mgr.scripts);
+    mgr.layout.zones = compute_zones(&floor.tilemap, &walkable, bias);
+    mgr.layout.max_slots = max_slots_for_stage(floor.floor_type, floor.stage);
+
+    // Trim furniture if stage regressed and we're over the new cap
+    while mgr.layout.furniture.len() > mgr.layout.max_slots as usize {
+        // Remove the most recently placed item
+        mgr.layout.furniture.pop();
+    }
+
+    // Try to place furniture
+    if mgr.placement_budget >= FURNITURE_COST
+        && (mgr.layout.furniture.len() as u8) < mgr.layout.max_slots
+    {
+        let placeable_zones: Vec<&OfficeZone> = mgr
+            .layout
+            .zones
+            .iter()
+            .filter(|z| z.kind != ZoneKind::Corridor)
+            .collect();
+        if !placeable_zones.is_empty() {
+            // Round-robin biased toward WorkArea
+            let furniture_count = mgr.layout.furniture.len();
+            let zone_idx = if furniture_count % 3 == 0 || furniture_count % 3 == 1 {
+                // WorkArea bias: pick first non-corridor (usually WorkArea)
+                0
+            } else {
+                (furniture_count / 2) % placeable_zones.len()
+            };
+            let zone = placeable_zones[zone_idx % placeable_zones.len()];
+            let zone_kind = zone.kind;
+            let upgrade_tier = upgrade_tier_from_scripts(&mgr.scripts);
+            let palette = palette_for_zone(zone_kind, upgrade_tier);
+            if !palette.is_empty() {
+                let asset_idx = furniture_count % palette.len();
+                let asset_id = palette[asset_idx].to_string();
+                let zone_cells = cells_in_zone(zone);
+                let occupied: std::collections::HashSet<(u8, u8)> = mgr
+                    .layout
+                    .furniture
+                    .iter()
+                    .map(|f| (f.x, f.y))
+                    .collect();
+                let mut free_cells: Vec<(u8, u8)> = zone_cells
+                    .into_iter()
+                    .filter(|c| !occupied.contains(c))
+                    .collect();
+                // Pick the cell that maximizes minimum distance from existing furniture
+                if !free_cells.is_empty() {
+                    if !occupied.is_empty() {
+                        free_cells.sort_by(|a, b| {
+                            let a_min = occupied.iter().map(|o| {
+                                u16::from(a.0.abs_diff(o.0)) + u16::from(a.1.abs_diff(o.1))
+                            }).min().unwrap_or(u16::MAX);
+                            let b_min = occupied.iter().map(|o| {
+                                u16::from(b.0.abs_diff(o.0)) + u16::from(b.1.abs_diff(o.1))
+                            }).min().unwrap_or(u16::MAX);
+                            b_min.cmp(&a_min)
+                        });
+                    }
+                }
+                if let Some(&(x, y)) = free_cells.first() {
+                    mgr.placement_budget -= FURNITURE_COST;
+                    mgr.layout.furniture.push(FurniturePlacement {
+                        asset_id: asset_id.clone(),
+                        x,
+                        y,
+                        zone: zone_kind,
+                        placed_at_tick: tick,
+                    });
+                    mgr.construction_fx.push(ConstructionFx {
+                        x,
+                        y,
+                        expires_at_tick: tick + 3,
+                    });
+                    new_events.push(SimEvent {
+                        id: Uuid::new_v4(),
+                        tick,
+                        timestamp: Utc::now(),
+                        category: "furniture_placed".to_string(),
+                        severity: "info".to_string(),
+                        message: format!(
+                            "Floor {} placed {} at ({}, {})",
+                            floor.name, asset_id, x, y
+                        ),
+                        refs: vec![floor.id.to_string()],
+                    });
+                }
+            }
+        }
+    }
+
+    // Tick pipeline
+    if let Some(ref mut pipeline) = mgr.pipeline {
+        tick_pipeline(pipeline, tick, &floor.name, floor.id, new_events);
+    }
+
+    // Overloaded crunch mode: remove break room items, add desks
+    if floor.stage == FloorStage::Overloaded {
+        let had_break = mgr
+            .layout
+            .furniture
+            .iter()
+            .any(|f| f.zone == ZoneKind::BreakRoom);
+        mgr.layout
+            .furniture
+            .retain(|f| f.zone != ZoneKind::BreakRoom);
+        if had_break && (mgr.layout.furniture.len() as u8) < mgr.layout.max_slots {
+            // Add a desk in the work area
+            if let Some(work_zone) = mgr.layout.zones.iter().find(|z| z.kind == ZoneKind::WorkArea)
+            {
+                let occupied: std::collections::HashSet<(u8, u8)> = mgr
+                    .layout
+                    .furniture
+                    .iter()
+                    .map(|f| (f.x, f.y))
+                    .collect();
+                let free: Vec<(u8, u8)> = cells_in_zone(work_zone)
+                    .into_iter()
+                    .filter(|c| !occupied.contains(c))
+                    .collect();
+                if let Some(&(x, y)) = free.first() {
+                    mgr.layout.furniture.push(FurniturePlacement {
+                        asset_id: "prop_lpc_desk_ornate".to_string(),
+                        x,
+                        y,
+                        zone: ZoneKind::WorkArea,
+                        placed_at_tick: tick,
+                    });
+                }
+            }
+        }
+    }
+}
+
+fn tick_pipeline(
+    pipeline: &mut Pipeline,
+    tick: u64,
+    floor_name: &str,
+    floor_id: Uuid,
+    new_events: &mut Vec<SimEvent>,
+) {
+    if pipeline.stages.is_empty() {
+        return;
+    }
+    pipeline.progress_ticks += 1;
+    let current = &pipeline.stages[pipeline.current_stage_idx];
+    if pipeline.progress_ticks >= current.duration_ticks {
+        pipeline.progress_ticks = 0;
+        pipeline.current_stage_idx += 1;
+        if pipeline.current_stage_idx >= pipeline.stages.len() {
+            pipeline.current_stage_idx = 0;
+            pipeline.total_completions += 1;
+            new_events.push(SimEvent {
+                id: Uuid::new_v4(),
+                tick,
+                timestamp: Utc::now(),
+                category: "pipeline_completed".to_string(),
+                severity: "info".to_string(),
+                message: format!(
+                    "Floor {} pipeline cycle #{} completed",
+                    floor_name, pipeline.total_completions
+                ),
+                refs: vec![floor_id.to_string()],
+            });
+        }
+    }
+}
+
+fn create_pipeline(kind: PipelineKind, work_zone: &OfficeZone) -> Pipeline {
+    let stages_def: Vec<(&str, &str)> = match kind {
+        PipelineKind::CiCd => vec![
+            ("push", "prop_push_desk"),
+            ("test", "prop_test_desk"),
+            ("review", "prop_review_desk"),
+            ("deploy", "prop_commit_desk"),
+        ],
+        PipelineKind::MailRoom => vec![
+            ("receive", "prop_lpc_mailboxes"),
+            ("sort", "prop_lpc_bins"),
+            ("distribute", "prop_lpc_desk_ornate"),
+        ],
+        PipelineKind::FoodService => vec![
+            ("prep", "prop_lpc_coffee_maker"),
+            ("cook", "prop_lpc_water_cooler"),
+            ("serve", "prop_lpc_card_table"),
+        ],
+    };
+    let base_x = work_zone.x_min;
+    let base_y = work_zone.y_min;
+    let stages = stages_def
+        .iter()
+        .enumerate()
+        .map(|(i, (name, asset))| PipelineStage {
+            name: name.to_string(),
+            asset_id: asset.to_string(),
+            x: base_x.saturating_add(i as u8 * 2).min(work_zone.x_max),
+            y: base_y,
+            duration_ticks: 5,
+        })
+        .collect();
+    Pipeline {
+        kind,
+        stages,
+        current_stage_idx: 0,
+        progress_ticks: 0,
+        total_completions: 0,
+    }
+}
+
+pub fn operator_review(state: &mut TowerState) {
+    if state.tick < state.operator.next_review_tick {
+        return;
+    }
+    state.operator.next_review_tick = state.tick + OPERATOR_REVIEW_INTERVAL;
+    state.operator.budget += 10;
+
+    for floor in &state.floors {
+        // Under-furnished for stage?
+        let max_slots = max_slots_for_stage(floor.floor_type, floor.stage);
+        let current_count = floor.manager.layout.furniture.len() as u8;
+        let has_upgrade = floor
+            .manager
+            .scripts
+            .iter()
+            .any(|s| matches!(s.config, ScriptConfig::FurnitureUpgrade { .. }));
+        if current_count < max_slots / 2 && !has_upgrade {
+            state.operator.pending_directives.push(OperatorDirective {
+                target_floor_id: floor.id,
+                action: DirectiveAction::UpgradeFurniture,
+                issued_at_tick: state.tick,
+            });
+        }
+
+        // Commercial at Growing+ without pipeline?
+        if floor.floor_type == FloorType::Commercial
+            && floor.stage >= FloorStage::Growing
+            && floor.manager.pipeline.is_none()
+        {
+            state.operator.pending_directives.push(OperatorDirective {
+                target_floor_id: floor.id,
+                action: DirectiveAction::InstallPipeline {
+                    kind: PipelineKind::CiCd,
+                },
+                issued_at_tick: state.tick,
+            });
+        }
+
+        // Service floor → bias toward BreakRoom
+        if floor.floor_type == FloorType::Service {
+            let has_bias = floor
+                .manager
+                .scripts
+                .iter()
+                .any(|s| matches!(s.config, ScriptConfig::LayoutBias { .. }));
+            if !has_bias {
+                state.operator.pending_directives.push(OperatorDirective {
+                    target_floor_id: floor.id,
+                    action: DirectiveAction::SetLayoutBias {
+                        work_pct: 0.3,
+                        break_pct: 0.5,
+                    },
+                    issued_at_tick: state.tick,
+                });
+            }
+        }
+    }
+}
+
+pub fn apply_pending_directives(state: &mut TowerState) {
+    let directives: Vec<OperatorDirective> = state.operator.pending_directives.drain(..).collect();
+    let tick = state.tick;
+    for directive in directives {
+        let Some(floor) = state
+            .floors
+            .iter_mut()
+            .find(|f| f.id == directive.target_floor_id)
+        else {
+            continue;
+        };
+        match directive.action {
+            DirectiveAction::SetLayoutBias { work_pct, break_pct } => {
+                floor.manager.scripts.push(ManagerScript {
+                    script_id: format!("layout_bias_{}", tick),
+                    installed_at_tick: tick,
+                    config: ScriptConfig::LayoutBias { work_pct, break_pct },
+                });
+            }
+            DirectiveAction::InstallScript { script_id, config } => {
+                floor.manager.scripts.push(ManagerScript {
+                    script_id,
+                    installed_at_tick: tick,
+                    config,
+                });
+            }
+            DirectiveAction::InstallPipeline { kind } => {
+                if floor.manager.pipeline.is_none() {
+                    let work_zone = floor
+                        .manager
+                        .layout
+                        .zones
+                        .iter()
+                        .find(|z| z.kind == ZoneKind::WorkArea)
+                        .cloned()
+                        .unwrap_or(OfficeZone {
+                            kind: ZoneKind::WorkArea,
+                            x_min: 1,
+                            y_min: 1,
+                            x_max: floor.tilemap.width.saturating_sub(2),
+                            y_max: floor.tilemap.height / 2,
+                        });
+                    floor.manager.pipeline = Some(create_pipeline(kind, &work_zone));
+                }
+            }
+            DirectiveAction::UpgradeFurniture => {
+                let has_upgrade = floor
+                    .manager
+                    .scripts
+                    .iter()
+                    .any(|s| matches!(s.config, ScriptConfig::FurnitureUpgrade { .. }));
+                if !has_upgrade {
+                    floor.manager.scripts.push(ManagerScript {
+                        script_id: format!("furniture_upgrade_{}", tick),
+                        installed_at_tick: tick,
+                        config: ScriptConfig::FurnitureUpgrade { tier: 1 },
+                    });
+                }
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1114,11 +2249,287 @@ mod tests {
     fn ensure_floor_tilemaps_backfills_legacy_snapshots() {
         let mut tower = initialize_tower(11);
         tower.floors[0].tilemap = FloorTileMap::default();
+        tower.floors[0].template_id.clear();
+        tower.floors[0].base_capacity = 0;
+        tower.floors[0].base_upkeep = 0;
+        tower.floors[0].base_rent_curve = 0;
         ensure_floor_tilemaps(&mut tower);
         let map = &tower.floors[0].tilemap;
         assert!(map.width > 0);
         assert!(map.height > 0);
         assert_eq!(map.tiles.len(), map.width as usize * map.height as usize);
         assert!(map.tiles.iter().any(|id| id.starts_with("tile_wall_")));
+        assert!(!tower.floors[0].template_id.is_empty());
+        assert!(tower.floors[0].base_capacity > 0);
+        assert!(tower.floors[0].base_upkeep > 0);
+        assert!(tower.floors[0].base_rent_curve > 0);
+    }
+
+    #[test]
+    fn floor_progression_tracks_load_and_emits_transition_event() {
+        let mut tower = initialize_tower(17);
+        let work_hub_id = tower
+            .floors
+            .iter()
+            .find(|f| f.floor_type == FloorType::Commercial)
+            .map(|f| f.id)
+            .expect("commercial floor exists");
+        for agent in &mut tower.agents {
+            agent.location_floor_id = work_hub_id;
+            agent.mood = 95;
+            agent.needs = Needs {
+                hunger: 95,
+                energy: 95,
+                social: 95,
+                comfort: 95,
+            };
+        }
+        let tick = run_tick(&mut tower);
+        let work_hub = tower
+            .floors
+            .iter()
+            .find(|f| f.id == work_hub_id)
+            .expect("commercial floor exists");
+        assert_eq!(work_hub.stage, FloorStage::Overloaded);
+        assert!(work_hub.stage_score >= 90);
+        assert_eq!(work_hub.template_id, "commercial_overloaded_v1");
+        assert!(tick.diff.new_events.iter().any(|e| {
+            e.category == "floor_progression"
+                && e.message.contains("Work Hub")
+                && e.message.contains("overloaded")
+        }));
+    }
+
+    #[test]
+    fn floor_template_catalog_covers_all_floor_type_stage_pairs() {
+        let floor_types = [
+            FloorType::Residential,
+            FloorType::Commercial,
+            FloorType::Service,
+            FloorType::Utility,
+        ];
+        let stages = [
+            FloorStage::Seed,
+            FloorStage::Growing,
+            FloorStage::Mature,
+            FloorStage::Overloaded,
+        ];
+        for floor_type in floor_types {
+            for stage in stages {
+                let spec = find_floor_template(floor_type, stage)
+                    .unwrap_or_else(|| panic!("missing template for {:?}/{:?}", floor_type, stage));
+                assert!(!spec.template_id.trim().is_empty());
+                assert!(spec.capacity_multiplier_pct > 0);
+                assert!(spec.upkeep_multiplier_pct > 0);
+            }
+        }
+    }
+
+    #[test]
+    fn floor_template_settings_load_expected_thresholds() {
+        let settings = floor_template_settings();
+        assert_eq!(settings.stage_thresholds.growing_min_score, 35);
+        assert_eq!(settings.stage_thresholds.mature_min_score, 65);
+        assert_eq!(settings.stage_thresholds.overloaded_min_score, 90);
+        assert_eq!(settings.expansion.max_floors, 8);
+        assert_eq!(settings.expansion.build_cooldown_ticks, 120);
+        assert_eq!(settings.expansion.min_avg_stage_score, 30);
+    }
+
+    #[test]
+    fn overloaded_floors_trigger_construction_when_cooldown_elapsed() {
+        let mut tower = initialize_tower(23);
+        tower.next_floor_build_tick = 0;
+        let work_hub_id = tower
+            .floors
+            .iter()
+            .find(|f| f.floor_type == FloorType::Commercial)
+            .map(|f| f.id)
+            .expect("commercial floor exists");
+        for agent in &mut tower.agents {
+            agent.location_floor_id = work_hub_id;
+            agent.mood = 95;
+            agent.needs = Needs {
+                hunger: 95,
+                energy: 95,
+                social: 95,
+                comfort: 95,
+            };
+        }
+        let initial_floor_count = tower.floors.len();
+        let tick = run_tick(&mut tower);
+        assert_eq!(tower.floors.len(), initial_floor_count + 1);
+        assert_eq!(tower.expansion_count, 1);
+        assert!(tower.next_floor_build_tick > tower.tick);
+        assert!(
+            tick.diff
+                .new_events
+                .iter()
+                .any(|e| e.category == "floor_construction")
+        );
+    }
+
+    #[test]
+    fn floor_manager_places_furniture_over_time() {
+        let mut tower = initialize_tower(42);
+        // Run enough ticks for budget to accumulate (FURNITURE_COST = 5)
+        for _ in 0..10 {
+            run_tick(&mut tower);
+        }
+        let commercial = tower
+            .floors
+            .iter()
+            .find(|f| f.floor_type == FloorType::Commercial)
+            .unwrap();
+        assert!(
+            !commercial.manager.layout.furniture.is_empty(),
+            "manager should have placed at least one furniture after 10 ticks"
+        );
+        assert!(commercial.manager.age_ticks >= 10);
+    }
+
+    #[test]
+    fn floor_manager_respects_max_slots() {
+        let mut tower = initialize_tower(42);
+        for tick_num in 0..80 {
+            run_tick(&mut tower);
+            for floor in &tower.floors {
+                let max = max_slots_for_stage(floor.floor_type, floor.stage);
+                assert!(
+                    floor.manager.layout.furniture.len() <= max as usize,
+                    "tick {}: floor {} ({:?}) has {} furniture but max_slots is {} at stage {:?}",
+                    tick_num + 1,
+                    floor.name,
+                    floor.floor_type,
+                    floor.manager.layout.furniture.len(),
+                    max,
+                    floor.stage,
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn zones_computed_correctly() {
+        let tilemap = build_floor_tilemap(FloorType::Commercial);
+        let walkable = walkable_cells_for_tilemap(&tilemap);
+        let zones = compute_zones(&tilemap, &walkable, None);
+        assert!(zones.len() >= 3, "should have at least WorkArea, BreakRoom, Reception");
+        assert!(
+            zones.iter().any(|z| z.kind == ZoneKind::WorkArea),
+            "missing WorkArea zone"
+        );
+        assert!(
+            zones.iter().any(|z| z.kind == ZoneKind::BreakRoom),
+            "missing BreakRoom zone"
+        );
+        assert!(
+            zones.iter().any(|z| z.kind == ZoneKind::Reception),
+            "missing Reception zone"
+        );
+    }
+
+    #[test]
+    fn operator_issues_directives() {
+        let mut tower = initialize_tower(42);
+        // Force review by setting next_review_tick to 0
+        tower.operator.next_review_tick = 0;
+        tower.tick = 1;
+        operator_review(&mut tower);
+        // Operator should have issued some directives
+        assert!(
+            !tower.operator.pending_directives.is_empty(),
+            "operator should issue directives on review"
+        );
+    }
+
+    #[test]
+    fn directives_consumed_by_managers() {
+        let mut tower = initialize_tower(42);
+        let floor_id = tower.floors[0].id;
+        tower.operator.pending_directives.push(OperatorDirective {
+            target_floor_id: floor_id,
+            action: DirectiveAction::UpgradeFurniture,
+            issued_at_tick: 1,
+        });
+        apply_pending_directives(&mut tower);
+        assert!(
+            tower.operator.pending_directives.is_empty(),
+            "directives should be consumed"
+        );
+        assert!(
+            tower.floors[0]
+                .manager
+                .scripts
+                .iter()
+                .any(|s| matches!(s.config, ScriptConfig::FurnitureUpgrade { .. })),
+            "upgrade script should be installed"
+        );
+    }
+
+    #[test]
+    fn scripts_modify_layout_behavior() {
+        let mut tower = initialize_tower(42);
+        let floor_id = tower
+            .floors
+            .iter()
+            .find(|f| f.floor_type == FloorType::Commercial)
+            .unwrap()
+            .id;
+        // Install upgrade script
+        tower.operator.pending_directives.push(OperatorDirective {
+            target_floor_id: floor_id,
+            action: DirectiveAction::InstallScript {
+                script_id: "test_upgrade".to_string(),
+                config: ScriptConfig::FurnitureUpgrade { tier: 1 },
+            },
+            issued_at_tick: 1,
+        });
+        apply_pending_directives(&mut tower);
+        // Now run ticks so furniture gets placed with upgrade palette
+        for _ in 0..20 {
+            run_tick(&mut tower);
+        }
+        let floor = tower.floors.iter().find(|f| f.id == floor_id).unwrap();
+        let has_upgrade_item = floor.manager.layout.furniture.iter().any(|f| {
+            UPGRADE_PALETTE.contains(&f.asset_id.as_str())
+        });
+        assert!(has_upgrade_item, "upgraded palette items should be placed");
+    }
+
+    #[test]
+    fn pipeline_advances_stages_and_completes() {
+        let zone = OfficeZone {
+            kind: ZoneKind::WorkArea,
+            x_min: 1,
+            y_min: 1,
+            x_max: 10,
+            y_max: 5,
+        };
+        let mut pipeline = create_pipeline(PipelineKind::CiCd, &zone);
+        assert_eq!(pipeline.stages.len(), 4);
+        assert_eq!(pipeline.current_stage_idx, 0);
+        assert_eq!(pipeline.total_completions, 0);
+
+        let floor_id = Uuid::new_v4();
+        let mut events = vec![];
+        // Advance through all stages (4 stages x 5 ticks each = 20 ticks)
+        for tick in 1..=20 {
+            tick_pipeline(&mut pipeline, tick, "test", floor_id, &mut events);
+        }
+        assert_eq!(pipeline.total_completions, 1, "pipeline should complete one cycle");
+        assert!(
+            events.iter().any(|e| e.category == "pipeline_completed"),
+            "should emit pipeline_completed event"
+        );
+    }
+
+    #[test]
+    fn legacy_floors_still_render_without_manager_furniture() {
+        // A floor with empty manager should use the legacy prop path
+        let tower = initialize_tower(42);
+        // At tick 0, no furniture placed yet - legacy path should work
+        // This test just ensures the tower initializes cleanly
+        assert!(tower.floors.iter().all(|f| f.manager.layout.furniture.is_empty()));
     }
 }

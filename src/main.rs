@@ -424,13 +424,13 @@ fn build_runtime_asset_mappings_with_previous(
             entity_id: floor.id.to_string(),
             entity_kind: "prop".to_string(),
             label: format!("{} | {}", floor.name, floor_type_label(floor.floor_type)),
-            asset_id: map_floor_prop_asset_id(floor.floor_type, world.tick, idx).to_string(),
+            asset_id: map_floor_prop_asset_id(floor, world.tick, idx).to_string(),
         });
         fx_bindings.push(RuntimeAssetBinding {
             entity_id: format!("{}:fx", floor.id),
             entity_kind: "fx".to_string(),
             label: format!("{} fx", floor.name),
-            asset_id: map_floor_fx_asset_id(assigned_agents, floor.capacity).to_string(),
+            asset_id: map_floor_fx_asset_id(floor, assigned_agents).to_string(),
         });
     }
     fx_bindings.push(RuntimeAssetBinding {
@@ -653,54 +653,102 @@ fn build_runtime_floor_placements_with_previous(
         }
         let circulation_cells = reserved_circulation_cells(&floor.tilemap, &base_cells);
 
-        let mut prop_assets = floor_prop_assets_for_placement(floor.floor_type, world.tick, idx);
-        let prop_cap = max_props_for_floor(base_cells.len());
-        if prop_assets.len() > prop_cap {
-            prop_assets.truncate(prop_cap);
-        }
-        let upper_cells: Vec<(u8, u8)> = base_cells
-            .iter()
-            .copied()
-            .filter(|(_, y)| *y <= height.saturating_div(2).max(1))
-            .filter(|pos| {
-                cell_clear_of_reserved(*pos, &circulation_cells, OFFICE_MIN_AISLE_WIDTH_TILES)
-            })
-            .collect();
-        let circulation_safe_cells: Vec<(u8, u8)> = base_cells
-            .iter()
-            .copied()
-            .filter(|pos| {
-                cell_clear_of_reserved(*pos, &circulation_cells, OFFICE_MIN_AISLE_WIDTH_TILES)
-            })
-            .collect();
-        let prop_candidates = if upper_cells.is_empty() {
-            if circulation_safe_cells.is_empty() {
-                base_cells.clone()
-            } else {
-                circulation_safe_cells
+        // Use manager furniture if available, otherwise legacy path
+        let has_manager_furniture = !floor.manager.layout.furniture.is_empty();
+        let mut occupied: HashSet<(u8, u8)>;
+        let mut prop_placements: Vec<RuntimePlacedAsset>;
+
+        if has_manager_furniture {
+            prop_placements = Vec::with_capacity(floor.manager.layout.furniture.len());
+            occupied = HashSet::new();
+            for (slot, fp) in floor.manager.layout.furniture.iter().enumerate() {
+                occupied.insert((fp.x, fp.y));
+                prop_placements.push(RuntimePlacedAsset {
+                    entity_id: format!("{}:prop:{slot}", floor.id),
+                    entity_kind: "prop".to_string(),
+                    label: format!("{} managed prop {}", floor.name, slot + 1),
+                    asset_id: fp.asset_id.clone(),
+                    x: fp.x,
+                    y: fp.y,
+                });
+            }
+            // Pipeline stage props
+            if let Some(ref pipeline) = floor.manager.pipeline {
+                for (si, stage) in pipeline.stages.iter().enumerate() {
+                    let entity_id = format!("{}:pipeline:{si}", floor.id);
+                    prop_placements.push(RuntimePlacedAsset {
+                        entity_id,
+                        entity_kind: "prop".to_string(),
+                        label: format!("{} pipeline {}", floor.name, stage.name),
+                        asset_id: stage.asset_id.clone(),
+                        x: stage.x,
+                        y: stage.y,
+                    });
+                    occupied.insert((stage.x, stage.y));
+                }
+            }
+            // Construction FX
+            for cfx in &floor.manager.construction_fx {
+                prop_placements.push(RuntimePlacedAsset {
+                    entity_id: format!("{}:cfx:{}:{}", floor.id, cfx.x, cfx.y),
+                    entity_kind: "fx".to_string(),
+                    label: format!("{} construction", floor.name),
+                    asset_id: "fx_spark_flicker".to_string(),
+                    x: cfx.x,
+                    y: cfx.y,
+                });
             }
         } else {
-            upper_cells
-        };
-        let prop_seed =
-            (world.tick << 20) ^ ((idx as u64) << 12) ^ (u64::from(width) << 6) ^ u64::from(height);
-        let prop_slots = pick_cells_with_spacing(
-            &prop_candidates,
-            prop_assets.len(),
-            OFFICE_PROP_MIN_SPACING_TILES,
-            prop_seed,
-        );
-        let mut occupied: HashSet<(u8, u8)> = prop_slots.iter().copied().collect();
-        let mut prop_placements = Vec::with_capacity(prop_assets.len());
-        for (slot, (asset_id, (x, y))) in prop_assets.iter().zip(prop_slots.iter()).enumerate() {
-            prop_placements.push(RuntimePlacedAsset {
-                entity_id: format!("{}:prop:{slot}", floor.id),
-                entity_kind: "prop".to_string(),
-                label: format!("{} prop slot {}", floor.name, slot + 1),
-                asset_id: (*asset_id).to_string(),
-                x: *x,
-                y: *y,
-            });
+            // Legacy path
+            let mut prop_assets = floor_prop_assets_for_placement(floor, world.tick, idx);
+            let prop_cap = max_props_for_floor(base_cells.len());
+            if prop_assets.len() > prop_cap {
+                prop_assets.truncate(prop_cap);
+            }
+            let upper_cells: Vec<(u8, u8)> = base_cells
+                .iter()
+                .copied()
+                .filter(|(_, y)| *y <= height.saturating_div(2).max(1))
+                .filter(|pos| {
+                    cell_clear_of_reserved(*pos, &circulation_cells, OFFICE_MIN_AISLE_WIDTH_TILES)
+                })
+                .collect();
+            let circulation_safe_cells: Vec<(u8, u8)> = base_cells
+                .iter()
+                .copied()
+                .filter(|pos| {
+                    cell_clear_of_reserved(*pos, &circulation_cells, OFFICE_MIN_AISLE_WIDTH_TILES)
+                })
+                .collect();
+            let prop_candidates = if upper_cells.is_empty() {
+                if circulation_safe_cells.is_empty() {
+                    base_cells.clone()
+                } else {
+                    circulation_safe_cells
+                }
+            } else {
+                upper_cells
+            };
+            let prop_seed =
+                (world.tick << 20) ^ ((idx as u64) << 12) ^ (u64::from(width) << 6) ^ u64::from(height);
+            let prop_slots = pick_cells_with_spacing(
+                &prop_candidates,
+                prop_assets.len(),
+                OFFICE_PROP_MIN_SPACING_TILES,
+                prop_seed,
+            );
+            occupied = prop_slots.iter().copied().collect();
+            prop_placements = Vec::with_capacity(prop_assets.len());
+            for (slot, (asset_id, (x, y))) in prop_assets.iter().zip(prop_slots.iter()).enumerate() {
+                prop_placements.push(RuntimePlacedAsset {
+                    entity_id: format!("{}:prop:{slot}", floor.id),
+                    entity_kind: "prop".to_string(),
+                    label: format!("{} prop slot {}", floor.name, slot + 1),
+                    asset_id: (*asset_id).to_string(),
+                    x: *x,
+                    y: *y,
+                });
+            }
         }
 
         let mut agent_placements = Vec::with_capacity(floor_agents.len());
@@ -785,7 +833,7 @@ fn build_runtime_floor_placements_with_previous(
 
         let assigned_agents = floor_agents.len();
         let hidden_agents = assigned_agents.saturating_sub(agent_placements.len());
-        let floor_fx_asset = map_floor_fx_asset_id(assigned_agents, floor.capacity);
+        let floor_fx_asset = map_floor_fx_asset_id(floor, assigned_agents);
         let focus = if !agent_placements.is_empty() {
             placement_centroid(&agent_placements)
         } else if !prop_placements.is_empty() {
@@ -820,6 +868,19 @@ fn build_runtime_floor_placements_with_previous(
                 x: alert_fx.0,
                 y: alert_fx.1,
             });
+        }
+        // Pipeline active stage spark FX
+        if let Some(ref pipeline) = floor.manager.pipeline {
+            if let Some(active_stage) = pipeline.stages.get(pipeline.current_stage_idx) {
+                fx_placements.push(RuntimePlacedAsset {
+                    entity_id: format!("{}:fx:pipeline_active", floor.id),
+                    entity_kind: "fx".to_string(),
+                    label: format!("{} pipeline active: {}", floor.name, active_stage.name),
+                    asset_id: "fx_spark_flicker".to_string(),
+                    x: active_stage.x,
+                    y: active_stage.y,
+                });
+            }
         }
 
         floors.push(RuntimeFloorPlacement {
@@ -990,31 +1051,101 @@ fn runtime_entity_removals(
         .collect()
 }
 
-fn floor_prop_assets_for_placement(
-    floor_type: FloorType,
-    tick: u64,
-    idx: usize,
-) -> Vec<&'static str> {
+fn floor_prop_assets_for_placement(floor: &sim::Floor, tick: u64, idx: usize) -> Vec<&'static str> {
     let len = ACTIVE_DESK_PROP_IDS.len();
     let cadence_tick = (tick / 8) as usize;
     let base = (cadence_tick + idx) % len;
-    match floor_type {
-        FloorType::Residential => vec![
+    match (floor.floor_type, floor.stage) {
+        (FloorType::Residential, sim::FloorStage::Seed) => vec![
             "prop_planning_board",
             ACTIVE_DESK_PROP_IDS[base],
             ACTIVE_DESK_PROP_IDS[(base + 1) % len],
         ],
-        FloorType::Commercial => vec![
+        (FloorType::Residential, sim::FloorStage::Growing) => vec![
+            "prop_planning_board",
             ACTIVE_DESK_PROP_IDS[base],
             ACTIVE_DESK_PROP_IDS[(base + 1) % len],
             ACTIVE_DESK_PROP_IDS[(base + 2) % len],
         ],
-        FloorType::Service => vec![
+        (FloorType::Residential, sim::FloorStage::Mature) => vec![
+            "prop_planning_board",
+            ACTIVE_DESK_PROP_IDS[base],
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            "prop_pull_desk",
+        ],
+        (FloorType::Residential, sim::FloorStage::Overloaded) => vec![
+            ACTIVE_DESK_PROP_IDS[base],
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+        ],
+        (FloorType::Commercial, sim::FloorStage::Seed) => vec![
+            ACTIVE_DESK_PROP_IDS[base],
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+        ],
+        (FloorType::Commercial, sim::FloorStage::Growing) => vec![
+            ACTIVE_DESK_PROP_IDS[base],
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            "prop_planning_board",
+        ],
+        (FloorType::Commercial, sim::FloorStage::Mature) => vec![
+            ACTIVE_DESK_PROP_IDS[base],
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+        ],
+        (FloorType::Commercial, sim::FloorStage::Overloaded) => vec![
+            ACTIVE_DESK_PROP_IDS[base],
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+            "prop_push_desk",
+        ],
+        (FloorType::Service, sim::FloorStage::Seed) => vec![
             ACTIVE_DESK_PROP_IDS[(base + 2) % len],
             "prop_planning_board",
             ACTIVE_DESK_PROP_IDS[(base + 3) % len],
         ],
-        FloorType::Utility => vec!["prop_test_desk", ACTIVE_DESK_PROP_IDS[(base + 4) % len]],
+        (FloorType::Service, sim::FloorStage::Growing) => vec![
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            "prop_planning_board",
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+        ],
+        (FloorType::Service, sim::FloorStage::Mature) => vec![
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+            "prop_pull_desk",
+        ],
+        (FloorType::Service, sim::FloorStage::Overloaded) => vec![
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+            "prop_push_desk",
+        ],
+        (FloorType::Utility, sim::FloorStage::Seed) => {
+            vec!["prop_test_desk", ACTIVE_DESK_PROP_IDS[(base + 4) % len]]
+        }
+        (FloorType::Utility, sim::FloorStage::Growing) => vec![
+            "prop_test_desk",
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 4) % len],
+        ],
+        (FloorType::Utility, sim::FloorStage::Mature) => vec![
+            "prop_test_desk",
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+        ],
+        (FloorType::Utility, sim::FloorStage::Overloaded) => vec![
+            "prop_test_desk",
+            ACTIVE_DESK_PROP_IDS[(base + 1) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 2) % len],
+            ACTIVE_DESK_PROP_IDS[(base + 3) % len],
+        ],
     }
 }
 
@@ -1464,16 +1595,18 @@ fn normalize_agent_asset_id(asset_id: &str) -> Option<&'static str> {
     }
 }
 
-fn map_floor_prop_asset_id(floor_type: FloorType, tick: u64, idx: usize) -> &'static str {
+fn map_floor_prop_asset_id(floor: &sim::Floor, tick: u64, idx: usize) -> &'static str {
     let cadence_tick = (tick / 8) as usize;
     let cycle = ACTIVE_DESK_PROP_IDS[(cadence_tick + idx) % ACTIVE_DESK_PROP_IDS.len()];
-    match floor_type {
-        FloorType::Residential => "prop_planning_board",
-        FloorType::Commercial => cycle,
-        FloorType::Service => {
+    match (floor.floor_type, floor.stage) {
+        (_, sim::FloorStage::Overloaded) => "prop_push_desk",
+        (_, sim::FloorStage::Mature) => "prop_review_desk",
+        (FloorType::Residential, _) => "prop_planning_board",
+        (FloorType::Commercial, _) => cycle,
+        (FloorType::Service, _) => {
             ACTIVE_DESK_PROP_IDS[(cadence_tick + idx + 2) % ACTIVE_DESK_PROP_IDS.len()]
         }
-        FloorType::Utility => "prop_test_desk",
+        (FloorType::Utility, _) => "prop_test_desk",
     }
 }
 
@@ -1489,10 +1622,17 @@ fn map_ui_state_asset_id(alert_count: usize) -> &'static str {
     }
 }
 
-fn map_floor_fx_asset_id(assigned_agents: usize, capacity: u16) -> &'static str {
+fn map_floor_fx_asset_id(floor: &sim::Floor, assigned_agents: usize) -> &'static str {
+    if floor.stage == sim::FloorStage::Overloaded {
+        return "fx_fail_pop";
+    }
+    if floor.stage == sim::FloorStage::Mature {
+        return "fx_upload_burst";
+    }
     if assigned_agents == 0 {
         return "fx_spark_flicker";
     }
+    let capacity = floor.capacity;
     if capacity > 0 {
         let pct = (assigned_agents.saturating_mul(100)) / capacity as usize;
         if pct >= 95 {
@@ -1941,6 +2081,8 @@ const INDEX_HTML: &str = r#"<!doctype html>
       --ink: #ffffff;
       --muted: #b7b7b7;
       --danger: #ff8080;
+      --tile-size: 26px;
+      --floor-grid-line: rgba(125, 255, 170, 0.25);
     }
     body { margin: 0; font-family: "IBM Plex Mono", monospace; background: var(--bg); color: var(--ink); }
     header { padding: 14px 18px; border-bottom: 1px solid #1b1b1b; display:flex; justify-content:space-between; }
@@ -1951,10 +2093,56 @@ const INDEX_HTML: &str = r#"<!doctype html>
     .row { display:flex; justify-content:space-between; gap: 10px; }
     .metric { color: var(--muted); }
     .asset-status { margin-bottom: 8px; }
-    .tilegrid { margin-top:6px; display:grid; gap:1px; width:max-content; padding:6px; border-radius:6px; border:1px solid #262626; background:#000; }
-    .tilecell { width:24px; height:24px; background:#000; border:1px solid #090909; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .tilegrid {
+      margin-top:6px;
+      display:grid;
+      gap:1px;
+      width:max-content;
+      padding:6px;
+      border-radius:6px;
+      border:1px solid #1e3326;
+      background: linear-gradient(180deg, #06160d 0%, #040a06 100%);
+      box-shadow: inset 0 0 0 1px #0c2316;
+    }
+    .tilecell {
+      width:var(--tile-size);
+      height:var(--tile-size);
+      background:#05150d;
+      border:1px solid #0f2418;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
     .tilecell.has-entity { outline: 1px solid #2f2f2f; outline-offset: -1px; }
-    .tilecell.floor { background: #000; }
+    .tilecell.floor { background: #0a2518; }
+    .tilecell.wall { background: #0f1112; border-color:#1f2629; }
+    .tileart {
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      z-index:1;
+      pointer-events:none;
+    }
+    .tilecell.floor .tileart { filter: saturate(1.05) brightness(0.9); }
+    .tilecell.wall .tileart { filter: contrast(1.06) brightness(0.93); }
+    .floor-grid {
+      position:absolute;
+      inset:0;
+      z-index:2;
+      pointer-events:none;
+      background-image:
+        linear-gradient(to right, var(--floor-grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--floor-grid-line) 1px, transparent 1px);
+      background-size: 8px 8px;
+      mix-blend-mode: screen;
+      opacity: 0.48;
+    }
     .glyph-outline {
       text-shadow:
         -1px -1px 0 #000,
@@ -1965,7 +2153,7 @@ const INDEX_HTML: &str = r#"<!doctype html>
     .tileglyph {
       font: 700 15px/1 "IBM Plex Mono", monospace;
       color:#dcdcdc;
-      z-index:1;
+      z-index:6;
       pointer-events:none;
     }
     .tileentity {
@@ -1977,7 +2165,7 @@ const INDEX_HTML: &str = r#"<!doctype html>
       font:700 15px/1 "IBM Plex Mono", monospace;
       color:#fff;
       pointer-events:none;
-      z-index:2;
+      z-index:4;
       transform: translate(var(--entity-dx, 0px), var(--entity-dy, 0px));
       text-shadow:
         -1px -1px 0 #000,
@@ -1985,8 +2173,21 @@ const INDEX_HTML: &str = r#"<!doctype html>
         -1px  1px 0 #000,
          1px  1px 0 #000;
     }
-    .tileentity.prop { opacity: 0.95; z-index: 2; }
-    .tileentity.agent { opacity: 1; z-index: 3; animation: agentBob 1.8s ease-in-out infinite; animation-delay: var(--entity-delay, 0s); }
+    .tileentity-art {
+      width: 92%;
+      height: 92%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      pointer-events:none;
+      filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.85));
+    }
+    .tileentity.prop { opacity: 0.95; z-index: 4; }
+    .tileentity.agent { opacity: 1; z-index: 5; animation: agentIdle 1.8s steps(2, end) infinite; animation-delay: var(--entity-delay, 0s); }
+    .tileentity.agent.state-work { animation-name: agentWork; animation-duration: 1s; }
+    .tileentity.agent.state-move { animation-name: agentMove; animation-duration: 0.62s; }
+    .tileentity.agent.state-alert { animation-name: agentAlert; animation-duration: 0.42s; }
+    .tileentity.agent.state-idle { animation-name: agentIdle; animation-duration: 1.9s; }
     .tileentity.fx { opacity: 0.9; z-index: 4; animation: fxPulse 0.95s steps(2, end) infinite; animation-delay: var(--entity-delay, 0s); }
     .tileentity.prop { color:#bbbbbb; }
     .tileentity.agent { color:#ffffff; }
@@ -2008,9 +2209,27 @@ const INDEX_HTML: &str = r#"<!doctype html>
          1px  1px 0 #000;
       pointer-events:none;
     }
-    @keyframes agentBob {
+    @keyframes agentIdle {
       0%, 100% { transform: translate(var(--entity-dx, 0px), var(--entity-dy, 0px)); }
       50% { transform: translate(var(--entity-dx, 0px), calc(var(--entity-dy, 0px) - 1px)); }
+    }
+    @keyframes agentWork {
+      0%, 100% { transform: translate(var(--entity-dx, 0px), var(--entity-dy, 0px)); }
+      25% { transform: translate(calc(var(--entity-dx, 0px) - 0.6px), calc(var(--entity-dy, 0px) - 1px)); }
+      50% { transform: translate(calc(var(--entity-dx, 0px) + 0.6px), var(--entity-dy, 0px)); }
+      75% { transform: translate(calc(var(--entity-dx, 0px) - 0.5px), calc(var(--entity-dy, 0px) - 1px)); }
+    }
+    @keyframes agentMove {
+      0%, 100% { transform: translate(var(--entity-dx, 0px), var(--entity-dy, 0px)); }
+      25% { transform: translate(calc(var(--entity-dx, 0px) - 1px), calc(var(--entity-dy, 0px) - 1px)); }
+      50% { transform: translate(calc(var(--entity-dx, 0px) + 1px), var(--entity-dy, 0px)); }
+      75% { transform: translate(calc(var(--entity-dx, 0px) - 1px), calc(var(--entity-dy, 0px) - 1px)); }
+    }
+    @keyframes agentAlert {
+      0%, 100% { transform: translate(var(--entity-dx, 0px), var(--entity-dy, 0px)); filter: saturate(1.0); }
+      25% { transform: translate(calc(var(--entity-dx, 0px) + 1px), var(--entity-dy, 0px)); filter: saturate(1.35); }
+      50% { transform: translate(calc(var(--entity-dx, 0px) - 1px), calc(var(--entity-dy, 0px) - 1px)); filter: saturate(1.05); }
+      75% { transform: translate(calc(var(--entity-dx, 0px) + 1px), var(--entity-dy, 0px)); filter: saturate(1.35); }
     }
     @keyframes fxPulse {
       0%, 100% { transform: translate(var(--entity-dx, 0px), var(--entity-dy, 0px)) scale(1); opacity: 0.75; }
@@ -2019,6 +2238,7 @@ const INDEX_HTML: &str = r#"<!doctype html>
     .sample-grid { margin-top:8px; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:6px; }
     .sample-card { border:1px solid #2a2a2a; border-radius:6px; background:#050505; padding:6px; display:flex; gap:6px; align-items:center; min-height:44px; }
     .sample-art { width:32px; height:32px; flex:0 0 32px; border:1px solid #1e1e1e; background:#000; display:flex; align-items:center; justify-content:center; color:#fff; font:700 16px/1 "IBM Plex Mono", monospace; }
+    .sample-art-img { width:100%; height:100%; object-fit:contain; image-rendering:pixelated; image-rendering:crisp-edges; pointer-events:none; }
     .sample-id { font:11px/1.15 "IBM Plex Mono", monospace; color:#d0d0d0; word-break:break-all; }
     .runtime-section { margin-top: 8px; }
     .runtime-group { margin-top: 8px; }
@@ -2040,10 +2260,13 @@ const INDEX_HTML: &str = r#"<!doctype html>
     </section>
     <section class="panel">
       <h3>Economy + Alerts</h3>
-      <div class="metric asset-status" id="assetStatus">render mode: ascii_v1</div>
+      <div class="metric asset-status" id="assetStatus">render mode: image_v2 (loading catalog)</div>
       <div class="metric" id="economy"></div>
       <hr />
       <div id="alerts"></div>
+      <hr />
+      <div class="metric">Floor Lifecycle</div>
+      <div id="floorLifecycle"></div>
       <hr />
       <div class="metric">Asset Samples</div>
       <div id="assetSamples" class="sample-grid"></div>
@@ -2057,11 +2280,20 @@ const INDEX_HTML: &str = r#"<!doctype html>
     const tickEl = document.getElementById('tick');
     const economyEl = document.getElementById('economy');
     const alertsEl = document.getElementById('alerts');
+    const floorLifecycleEl = document.getElementById('floorLifecycle');
     const assetStatusEl = document.getElementById('assetStatus');
     const assetSamplesEl = document.getElementById('assetSamples');
     const runtimeAssetsEl = document.getElementById('runtimeAssets');
     const alerts = [];
+    const floorLifecycle = [];
+    const SHOWCASE_MIN_COMMERCIAL_RENDERED_AGENTS = 12;
+    const MAX_ALERT_HISTORY = 120;
+    const MAX_FLOOR_LIFECYCLE_HISTORY = 160;
+    let currentTick = 0;
     let latestSnapshotPayload = null;
+    let tileCatalog = null;
+    let catalogTilesById = Object.create(null);
+    const agentMotionMemory = new Map();
 
     function escapeHtml(value) {
       return String(value ?? '')
@@ -2110,13 +2342,25 @@ const INDEX_HTML: &str = r#"<!doctype html>
       return '';
     }
 
-    function entityToken(assetId, kind) {
+    function hashString(value) {
+      const text = String(value || '');
+      let h = 2166136261;
+      for (let i = 0; i < text.length; i += 1) {
+        h ^= text.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return h >>> 0;
+    }
+
+    function entityToken(assetId, kind, entityId = '') {
       const resolvedKind = kind || inferEntityKind(assetId);
       if (typeof assetId === 'string') {
         if (assetId.startsWith('agent_')) {
-          if (assetId.includes('alert') || assetId.includes('fail')) return '!';
-          if (assetId.includes('move')) return '&';
-          return '@';
+          const phase = (Math.floor(currentTick / 2) + hashString(entityId || assetId)) % 2;
+          if (assetId.includes('alert') || assetId.includes('fail')) return phase === 0 ? '!' : '*';
+          if (assetId.includes('move')) return phase === 0 ? '&' : '>';
+          if (assetId.includes('work')) return phase === 0 ? '@' : '&';
+          return phase === 0 ? '@' : 'o';
         }
         if (assetId.startsWith('prop_')) {
           if (assetId.includes('desk')) return '=';
@@ -2135,8 +2379,88 @@ const INDEX_HTML: &str = r#"<!doctype html>
       return '?';
     }
 
+    function hasCatalogAsset(assetId) {
+      return typeof assetId === 'string'
+        && assetId.length > 0
+        && Object.prototype.hasOwnProperty.call(catalogTilesById, assetId);
+    }
+
+    function assetUrlForId(assetId) {
+      if (!hasCatalogAsset(assetId)) return '';
+      const entry = catalogTilesById[assetId];
+      const route = entry && typeof entry.url === 'string' ? entry.url : '';
+      if (route) return route;
+      return `/assets/public/v1/tiles/${encodeURIComponent(assetId)}`;
+    }
+
+    function renderAssetImage(assetId, className, altText = '') {
+      const src = assetUrlForId(assetId);
+      if (!src) return '';
+      return `<img class="${escapeHtml(className)}" src="${escapeHtml(src)}" alt="${escapeHtml(altText || assetId || 'asset')}" loading="lazy" decoding="async" draggable="false" />`;
+    }
+
+    function parseAgentGoalFromLabel(label) {
+      if (typeof label !== 'string') return '';
+      const sep = label.indexOf('|');
+      if (sep === -1) return '';
+      return label.slice(sep + 1).trim().toLowerCase();
+    }
+
+    function pruneAgentMotionCache(runtimeFloorPlacements) {
+      const seen = new Set();
+      const floors = runtimeFloorPlacements && Array.isArray(runtimeFloorPlacements.floors)
+        ? runtimeFloorPlacements.floors
+        : [];
+      floors.forEach((floor) => {
+        const agents = Array.isArray(floor?.agents) ? floor.agents : [];
+        agents.forEach((agent) => {
+          if (typeof agent?.entity_id === 'string' && agent.entity_id) {
+            seen.add(agent.entity_id);
+          }
+        });
+      });
+      Array.from(agentMotionMemory.keys()).forEach((id) => {
+        if (!seen.has(id)) {
+          agentMotionMemory.delete(id);
+        }
+      });
+    }
+
+    function agentAnimationState(entity) {
+      if (!entity || entity.entity_kind !== 'agent') return ' state-idle';
+      const assetId = typeof entity.asset_id === 'string' ? entity.asset_id : '';
+      if (assetId.includes('alert') || assetId.includes('fail')) {
+        return ' state-alert';
+      }
+      const goal = parseAgentGoalFromLabel(entity.label);
+      const entityId = typeof entity.entity_id === 'string' ? entity.entity_id : '';
+      const x = Number(entity.x);
+      const y = Number(entity.y);
+      let moved = false;
+      if (entityId && Number.isInteger(x) && Number.isInteger(y)) {
+        const previous = agentMotionMemory.get(entityId);
+        moved = Boolean(previous) && (previous.x !== x || previous.y !== y);
+        agentMotionMemory.set(entityId, { x, y, tick: currentTick });
+      }
+      if (moved || goal === 'relocate' || goal === 'socialize' || goal === 'eat') {
+        return ' state-move';
+      }
+      if (goal === 'work' || assetId.includes('work')) {
+        return ' state-work';
+      }
+      return ' state-idle';
+    }
+
     function cellKey(x, y) {
       return `${x},${y}`;
+    }
+
+    function pushWithCap(buffer, entry, maxEntries) {
+      if (!Array.isArray(buffer)) return;
+      buffer.push(entry);
+      if (buffer.length > maxEntries) {
+        buffer.splice(0, buffer.length - maxEntries);
+      }
     }
 
     function runtimeAssetMapById(runtimeAssets, groupKey) {
@@ -2187,6 +2511,82 @@ const INDEX_HTML: &str = r#"<!doctype html>
       return byCell;
     }
 
+    function commercialShowcasePlacement(floor, placement, runtimeAssets) {
+      if (!floor || floor.floor_type !== 'commercial') return placement;
+      const base = placement && typeof placement === 'object'
+        ? {
+            floor_id: placement.floor_id || floor.id,
+            floor_name: placement.floor_name || floor.name,
+            width: placement.width || floor.tilemap?.width || 1,
+            height: placement.height || floor.tilemap?.height || 1,
+            props: Array.isArray(placement.props) ? [...placement.props] : [],
+            agents: Array.isArray(placement.agents) ? [...placement.agents] : [],
+            fx: Array.isArray(placement.fx) ? [...placement.fx] : [],
+          }
+        : {
+            floor_id: floor.id,
+            floor_name: floor.name,
+            width: floor.tilemap?.width || 1,
+            height: floor.tilemap?.height || 1,
+            props: [],
+            agents: [],
+            fx: [],
+          };
+      if (!floor.tilemap || !Array.isArray(floor.tilemap.tiles) || !floor.tilemap.width || !floor.tilemap.height) {
+        return base;
+      }
+      if (base.agents.length >= SHOWCASE_MIN_COMMERCIAL_RENDERED_AGENTS) {
+        return base;
+      }
+      const occupied = new Set();
+      [...base.props, ...base.agents, ...base.fx].forEach((entry) => {
+        const x = Number(entry?.x);
+        const y = Number(entry?.y);
+        if (Number.isInteger(x) && Number.isInteger(y)) occupied.add(cellKey(x, y));
+      });
+      const width = floor.tilemap.width;
+      const height = floor.tilemap.height;
+      const walkable = [];
+      for (let y = 1; y < height - 1; y += 1) {
+        for (let x = 1; x < width - 1; x += 1) {
+          const idx = y * width + x;
+          const tileId = floor.tilemap.tiles[idx];
+          if (typeof tileId !== 'string' || tileId.startsWith('tile_wall_')) continue;
+          if (occupied.has(cellKey(x, y))) continue;
+          walkable.push({ x, y });
+        }
+      }
+      if (walkable.length === 0) return base;
+      const sourceAgents = runtimeAssets && Array.isArray(runtimeAssets.agents)
+        ? runtimeAssets.agents.filter((entry) => typeof entry?.asset_id === 'string' && entry.asset_id.startsWith('agent_'))
+        : [];
+      if (sourceAgents.length === 0) return base;
+      const needed = SHOWCASE_MIN_COMMERCIAL_RENDERED_AGENTS - base.agents.length;
+      const seed = currentTick % walkable.length;
+      for (let i = 0; i < needed; i += 1) {
+        let slot = null;
+        for (let probe = 0; probe < walkable.length; probe += 1) {
+          const candidate = walkable[(seed + i * 7 + probe) % walkable.length];
+          if (!candidate || occupied.has(cellKey(candidate.x, candidate.y))) continue;
+          slot = candidate;
+          break;
+        }
+        if (!slot) break;
+        const sample = sourceAgents[i % sourceAgents.length];
+        const showcaseId = `showcase:${floor.id}:${i}`;
+        base.agents.push({
+          entity_id: showcaseId,
+          entity_kind: 'agent',
+          label: 'showcase worker',
+          asset_id: sample.asset_id,
+          x: slot.x,
+          y: slot.y,
+        });
+        occupied.add(cellKey(slot.x, slot.y));
+      }
+      return base;
+    }
+
     function entityLayerRank(kind) {
       if (kind === 'prop') return 1;
       if (kind === 'fx') return 2;
@@ -2200,22 +2600,37 @@ const INDEX_HTML: &str = r#"<!doctype html>
       const primary = layered[layered.length - 1];
       const title = primary.label || primary.asset_id || primary.entity_kind || 'entity';
       const delay = (((primary.x || 0) * 5 + (primary.y || 0) * 3) % 11) / 10;
-      const token = entityToken(primary.asset_id, primary.entity_kind);
+      const token = entityToken(primary.asset_id, primary.entity_kind, primary.entity_id);
+      const assetStateClass = primary.entity_kind === 'agent' ? agentAnimationState(primary) : '';
       const badge = cellEntities.length > 1
         ? `<span class="tilecrowd">+${cellEntities.length - 1}</span>`
         : '';
-      return `<span class="tileentity ${escapeHtml(primary.entity_kind || 'entity')}" style="--entity-dx:0px; --entity-dy:0px; --entity-delay:-${delay.toFixed(1)}s" title="${escapeHtml(title)}">${escapeHtml(token)}</span>${badge}`;
+      const driftSeed = hashString(primary.entity_id || primary.asset_id || primary.label || '');
+      const driftX = (driftSeed % 3) - 1;
+      const driftY = (Math.floor(driftSeed / 7) % 3) - 1;
+      const entityImage = renderAssetImage(
+        primary.asset_id,
+        'tileentity-art',
+        title
+      );
+      const entityGlyph = entityImage
+        ? ''
+        : `<span class="tileglyph glyph-outline">${escapeHtml(token)}</span>`;
+      return `<span class="tileentity ${escapeHtml(primary.entity_kind || 'entity')}${assetStateClass}" style="--entity-dx:${driftX}px; --entity-dy:${driftY}px; --entity-delay:-${delay.toFixed(1)}s" title="${escapeHtml(title)}">${entityImage}${entityGlyph}</span>${badge}`;
     }
 
     function tileCell(tileId, cellEntities) {
       const hasEntity = Array.isArray(cellEntities) && cellEntities.length ? ' has-entity' : '';
       const tileClass = tileId === 'tile_floor_clean' ? ' floor' : '';
+      const wallClass = typeof tileId === 'string' && tileId.startsWith('tile_wall_') ? ' wall' : '';
       const overlay = renderEntityOverlay(cellEntities);
       const token = tileToken(tileId);
-      const glyph = token.trim()
+      const tileImage = renderAssetImage(tileId, 'tileart', tileId || 'tile');
+      const floorGrid = tileId === 'tile_floor_clean' ? '<span class="floor-grid"></span>' : '';
+      const glyph = tileImage ? '' : (token.trim()
         ? `<span class="tileglyph glyph-outline">${escapeHtml(token)}</span>`
-        : '';
-      return `<div class="tilecell${tileClass}${hasEntity}" title="${escapeHtml(tileId || 'unknown')}">${glyph}${overlay}</div>`;
+        : '');
+      return `<div class="tilecell${tileClass}${wallClass}${hasEntity}" title="${escapeHtml(tileId || 'unknown')}">${tileImage}${floorGrid}${glyph}${overlay}</div>`;
     }
 
     function renderTilemap(tilemap, floorPlacement, runtimeAssets, assignedAgentCount) {
@@ -2241,11 +2656,11 @@ const INDEX_HTML: &str = r#"<!doctype html>
       const fxCount = floorPlacement && Array.isArray(floorPlacement.fx) ? floorPlacement.fx.length : 0;
       const assigned = Number.isInteger(assignedAgentCount) ? assignedAgentCount : agentCount;
       const hiddenAgents = Math.max(0, assigned - agentCount);
-      return `<div class="metric">tilemap: ${width}x${tilemap.height} | wall ids: ${wallIds.length} | render: ascii_v1</div>
+      return `<div class="metric">tilemap: ${width}x${tilemap.height} | wall ids: ${wallIds.length} | render: image_v2</div>
               <div class="metric">runtime placed entities: ${placedCount} | props: ${propCount} | agents(rendered): ${agentCount} | agents(hidden): ${hiddenAgents} | fx: ${fxCount} | crowded cells: ${crowdedCells}</div>
               <div class="metric">layout policy: tile=3ft | min aisle=1 tile | main corridor=2 tiles | turning pocket=2x2</div>
               <div class="metric">walls: ${escapeHtml(sample || 'none')}</div>
-              <div class="tilegrid" style="grid-template-columns: repeat(${width}, 24px);">${cells}</div>`;
+              <div class="tilegrid" style="grid-template-columns: repeat(${width}, var(--tile-size));">${cells}</div>`;
     }
 
     function floorPlacementFor(runtimeFloorPlacements, floorId) {
@@ -2323,8 +2738,10 @@ const INDEX_HTML: &str = r#"<!doctype html>
 
     function renderFloors(payload) {
       floorsEl.innerHTML = '';
+      pruneAgentMotionCache(payload?.runtime_floor_placements);
       payload.floors.forEach(f => {
         const placement = floorPlacementFor(payload.runtime_floor_placements, f.id);
+        const showcasePlacement = commercialShowcasePlacement(f, placement, payload.runtime_assets);
         const assignedAgentCount = Array.isArray(payload.agents)
           ? payload.agents.filter((a) => a && a.location_floor_id === f.id).length
           : 0;
@@ -2332,28 +2749,46 @@ const INDEX_HTML: &str = r#"<!doctype html>
         div.className = 'floor';
         div.innerHTML = `<div class="row"><strong>${f.name}</strong><span>${f.floor_type}</span></div>
                          <div class="metric">cap: ${f.capacity} | occ: ${f.occupancy} | rent: ${f.rent_curve}</div>
-                         ${renderTilemap(f.tilemap, placement, payload.runtime_assets, assignedAgentCount)}`;
+                         <div class="metric">stage: ${f.stage || 'seed'} (${typeof f.stage_score === 'number' ? f.stage_score : 0}) | template: ${f.template_id || 'n/a'}</div>
+                         ${renderTilemap(f.tilemap, showcasePlacement, payload.runtime_assets, assignedAgentCount)}`;
         floorsEl.appendChild(div);
       });
     }
 
     function renderSnapshot(payload) {
       latestSnapshotPayload = payload;
+      currentTick = Number(payload.tick) || 0;
       tickEl.textContent = `tick: ${payload.tick}`;
       renderFloors(payload);
-      economyEl.textContent = `wages: ${payload.economy.wages_paid}, rent: ${payload.economy.rent_collected}, service: ${payload.economy.service_spend}, penalties: ${payload.economy.unmet_need_penalty}`;
-      alertsEl.innerHTML = '';
-      payload.alerts.forEach(a => {
-        const div = document.createElement('div');
-        div.className = 'alert';
-        div.textContent = `[${a.category}] ${a.message}`;
-        alertsEl.appendChild(div);
-      });
+      const economy = payload && typeof payload.economy === 'object' ? payload.economy : {};
+      economyEl.textContent = `wages: ${Number(economy.wages_paid) || 0}, rent: ${Number(economy.rent_collected) || 0}, service: ${Number(economy.service_spend) || 0}, penalties: ${Number(economy.unmet_need_penalty) || 0}`;
+      alerts.length = 0;
+      const snapshotAlerts = Array.isArray(payload.alerts) ? payload.alerts : [];
+      snapshotAlerts.forEach((alert) => pushWithCap(alerts, alert, MAX_ALERT_HISTORY));
+      renderAlerts();
+      renderFloorLifecycle();
       renderRuntimeAssets(payload.runtime_assets);
     }
 
     function renderAlerts() {
+      if (!Array.isArray(alerts) || alerts.length === 0) {
+        alertsEl.innerHTML = '<div class="metric">No active alerts.</div>';
+        return;
+      }
       alertsEl.innerHTML = alerts.slice(-12).map(a => `<div class="alert">[${a.category}] ${a.message}</div>`).join('');
+    }
+
+    function renderFloorLifecycle() {
+      if (!floorLifecycleEl) return;
+      if (!Array.isArray(floorLifecycle) || floorLifecycle.length === 0) {
+        floorLifecycleEl.innerHTML = '<div class="metric">No floor transitions yet.</div>';
+        return;
+      }
+      floorLifecycleEl.innerHTML = floorLifecycle
+        .slice(-12)
+        .reverse()
+        .map((entry) => `<div class="metric">[t${entry.tick}] ${escapeHtml(entry.message)}</div>`)
+        .join('');
     }
 
     function renderAssetSamples() {
@@ -2368,8 +2803,12 @@ const INDEX_HTML: &str = r#"<!doctype html>
         'openai_subscription_probe',
       ];
       assetSamplesEl.innerHTML = sampleIds.map((assetId) => {
-        const token = entityToken(assetId, inferEntityKind(assetId));
-        return `<div class="sample-card"><div class="sample-art glyph-outline">${escapeHtml(token)}</div><div class="sample-id">${escapeHtml(assetId)}</div></div>`;
+        const token = entityToken(assetId, inferEntityKind(assetId), assetId);
+        const image = renderAssetImage(assetId, 'sample-art-img', assetId);
+        const art = image
+          ? `<div class="sample-art">${image}</div>`
+          : `<div class="sample-art glyph-outline">${escapeHtml(token)}</div>`;
+        return `<div class="sample-card">${art}<div class="sample-id">${escapeHtml(assetId)}</div></div>`;
       }).join('');
     }
 
@@ -2377,8 +2816,11 @@ const INDEX_HTML: &str = r#"<!doctype html>
       const assetId = binding && typeof binding.asset_id === 'string' ? binding.asset_id : '';
       const label = binding && typeof binding.label === 'string' ? binding.label : '';
       const entityId = binding && typeof binding.entity_id === 'string' ? binding.entity_id : '';
-      const token = entityToken(assetId, inferEntityKind(assetId));
-      const art = `<div class="sample-art glyph-outline">${escapeHtml(token)}</div>`;
+      const token = entityToken(assetId, inferEntityKind(assetId), entityId || assetId);
+      const image = renderAssetImage(assetId, 'sample-art-img', assetId);
+      const art = image
+        ? `<div class="sample-art">${image}</div>`
+        : `<div class="sample-art glyph-outline">${escapeHtml(token)}</div>`;
       return `<div class="sample-card">${art}<div><div class="sample-id">${escapeHtml(assetId || 'unknown')}</div><div class="runtime-meta">${escapeHtml(label || entityId || 'entity')}</div></div></div>`;
     }
 
@@ -2438,7 +2880,26 @@ const INDEX_HTML: &str = r#"<!doctype html>
     }
 
     async function loadTileCatalog() {
-      assetStatusEl.textContent = 'render mode: ascii_v1 (asset images bypassed)';
+      assetStatusEl.textContent = 'render mode: image_v2 (loading catalog...)';
+      tileCatalog = null;
+      catalogTilesById = Object.create(null);
+      try {
+        const response = await fetch('/assets/public/v1/catalog');
+        if (!response.ok) {
+          throw new Error(`catalog_http_${response.status}`);
+        }
+        const catalog = await response.json();
+        tileCatalog = catalog && typeof catalog === 'object' ? catalog : null;
+        const entries = tileCatalog && typeof tileCatalog.tiles === 'object'
+          ? tileCatalog.tiles
+          : {};
+        catalogTilesById = entries || Object.create(null);
+        const tileCount = Number(tileCatalog?.tile_count) || Object.keys(catalogTilesById).length;
+        const packCount = Number(tileCatalog?.pack_count) || 0;
+        assetStatusEl.textContent = `render mode: image_v2 | catalog tiles: ${tileCount} | packs: ${packCount}`;
+      } catch (_) {
+        assetStatusEl.textContent = 'render mode: hybrid_fallback (catalog unavailable)';
+      }
       renderAssetSamples();
     }
 
@@ -2469,8 +2930,14 @@ const INDEX_HTML: &str = r#"<!doctype html>
           return;
         }
         if (msg.type === 'WorldDiff') {
+          currentTick = Number(msg.payload.tick) || currentTick;
           tickEl.textContent = `tick: ${msg.payload.tick}`;
-          economyEl.textContent = `tower health: ${msg.payload.metrics_delta.tower_health.toFixed(1)} | alerts: ${msg.payload.metrics_delta.alert_count}`;
+          const metricsDelta = msg.payload && typeof msg.payload.metrics_delta === 'object'
+            ? msg.payload.metrics_delta
+            : {};
+          const towerHealth = Number(metricsDelta.tower_health);
+          const alertCount = Number(metricsDelta.alert_count);
+          economyEl.textContent = `tower health: ${Number.isFinite(towerHealth) ? towerHealth.toFixed(1) : 'n/a'} | alerts: ${Number.isFinite(alertCount) ? alertCount : 0}`;
           const mergedRuntimeAssets = mergeRuntimeAssetsDelta(
             latestSnapshotPayload && typeof latestSnapshotPayload === 'object'
               ? latestSnapshotPayload.runtime_assets
@@ -2486,9 +2953,20 @@ const INDEX_HTML: &str = r#"<!doctype html>
             );
             renderFloors(latestSnapshotPayload);
           }
+          const diffEvents = Array.isArray(msg.payload.new_events) ? msg.payload.new_events : [];
+          diffEvents.forEach((event) => {
+            if (!event || typeof event !== 'object') return;
+            if (event.category === 'floor_progression' || event.category === 'floor_construction') {
+              pushWithCap(floorLifecycle, {
+                tick: Number(event.tick) || msg.payload.tick || 0,
+                message: String(event.message || ''),
+              }, MAX_FLOOR_LIFECYCLE_HISTORY);
+            }
+          });
+          renderFloorLifecycle();
           renderRuntimeAssets(mergedRuntimeAssets);
         } else if (msg.type === 'AlertRaised') {
-          alerts.push(msg.payload);
+          pushWithCap(alerts, msg.payload, MAX_ALERT_HISTORY);
           renderAlerts();
         } else if (msg.type === 'WorldSnapshot') {
           renderSnapshot(msg.payload);
