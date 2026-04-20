@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "tile_wall_terminal",
+    "asset_class": "environment_tile",
+    "width": 16,
+    "height": 16,
+    "frames": 1,
+    "tags": ["tile","wall","terminal"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi wall tile with recessed terminal panel"
+  }
+}

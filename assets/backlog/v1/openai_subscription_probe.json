@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "openai_subscription_probe",
+    "asset_class": "ui_overlay",
+    "width": 32,
+    "height": 32,
+    "frames": 2,
+    "tags": ["openai","probe","ui"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi OpenAI subscription probe icon with antenna and status light"
+  }
+}

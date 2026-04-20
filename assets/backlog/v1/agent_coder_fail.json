@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "agent_coder_fail",
+    "asset_class": "agent_sprite",
+    "width": 32,
+    "height": 32,
+    "frames": 4,
+    "tags": ["agent","coder","fail"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi coder agent frustrated fail pose, red alert bounce"
+  }
+}

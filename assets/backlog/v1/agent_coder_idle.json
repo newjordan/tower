@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "agent_coder_idle",
+    "asset_class": "agent_sprite",
+    "width": 32,
+    "height": 32,
+    "frames": 6,
+    "tags": ["agent","coder","idle"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi coder agent at desk, idle breathing loop, side-view"
+  }
+}

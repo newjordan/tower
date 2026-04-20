@@ -1,0 +1,520 @@
+{
+  "assets": [
+    {
+      "asset_id": "floor_tile",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/floor_tile.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "table_basic",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/table_basic.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_door_lat",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_door_lat.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_door_vert",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_door_vert.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_floor_clean",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_floor_clean.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_prop_table",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_prop_table.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_T_center",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_T_center.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_T_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_T_left.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_T_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_T_right.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_T_top",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_T_top.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_corner_bottom_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_corner_bottom_left.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_corner_bottom_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_corner_bottom_right.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_corner_top_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_corner_top_left.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_corner_top_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_corner_top_right.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_cross",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_cross.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_door_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_door_left.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_door_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_door_right.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_door_vert",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_door_vert.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_edge_bottom",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_edge_bottom.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_edge_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_edge_left.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_edge_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_edge_right.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_edge_top",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_edge_top.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_inner_corner_bottom_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_inner_corner_bottom_left.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_inner_corner_bottom_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_inner_corner_bottom_right.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_inner_corner_top_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_inner_corner_top_left.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_inner_corner_top_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_inner_corner_top_right.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_pillar",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_pillar.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_pillar_alt",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_pillar_alt.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_pillar_simple",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_pillar_simple.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_primary_alt_vert",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_primary_alt_vert.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_primary_lat",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_primary_lat.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_t_bot",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_t_bot.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_t_bottom",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_t_bottom.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_terminal",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_terminal.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_window_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_window_left.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_window_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_window_right.png",
+      "tags": [
+        "tile",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_t_top",
+      "alias_of": "tile_wall_T_top",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_t_top.png",
+      "tags": [
+        "tile",
+        "wall",
+        "semantic_alias",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_t_left",
+      "alias_of": "tile_wall_T_left",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_t_left.png",
+      "tags": [
+        "tile",
+        "wall",
+        "semantic_alias",
+        "curated"
+      ]
+    },
+    {
+      "asset_id": "tile_wall_t_right",
+      "alias_of": "tile_wall_T_right",
+      "anchor": {
+        "x": 0,
+        "y": 0,
+        "step": 32
+      },
+      "file": "assets/public/v1/imported/perspective_walls_template/tiles/tile_wall_t_right.png",
+      "tags": [
+        "tile",
+        "wall",
+        "semantic_alias",
+        "curated"
+      ]
+    }
+  ]
+}

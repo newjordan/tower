@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "portrait_coding_thinking",
+    "asset_class": "portrait",
+    "width": 48,
+    "height": 48,
+    "frames": 3,
+    "tags": ["portrait","coding","thinking"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi coding director portrait thinking expression"
+  }
+}

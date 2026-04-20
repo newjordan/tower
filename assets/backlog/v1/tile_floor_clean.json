@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "tile_floor_clean",
+    "asset_class": "environment_tile",
+    "width": 16,
+    "height": 16,
+    "frames": 1,
+    "tags": ["tile","floor","clean"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi clean office floor tile with subtle grid"
+  }
+}

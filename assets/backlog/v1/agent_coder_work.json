@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "agent_coder_work",
+    "asset_class": "agent_sprite",
+    "width": 32,
+    "height": 32,
+    "frames": 6,
+    "tags": ["agent","coder","work"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi coder agent typing rapidly, monitor glow pulses"
+  }
+}

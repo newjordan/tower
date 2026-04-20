@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "fx_fail_pop",
+    "asset_class": "fx",
+    "width": 16,
+    "height": 16,
+    "frames": 4,
+    "tags": ["fx","fail","pop"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi fail pop effect with red shard pop"
+  }
+}

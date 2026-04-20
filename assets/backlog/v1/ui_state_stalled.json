@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "ui_state_stalled",
+    "asset_class": "ui_overlay",
+    "width": 16,
+    "height": 16,
+    "frames": 2,
+    "tags": ["ui","state","stalled"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi health badge orange stalled pulse"
+  }
+}

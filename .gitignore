@@ -1,0 +1,12 @@
+/target
+/assets/generated/
+/assets/backlog/runs/
+/assets/previews/runtime/
+/assets/public/v1/imported/perspective_walls_template/tiles/unidentified/
+/.claude/
+/.codex/
+/.env
+/.env.*
+!/.env.example
+/research/exa/*
+!/research/exa/.gitkeep

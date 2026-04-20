@@ -1,0 +1,116 @@
+{
+  "version": "v1_seed_2026-02-25",
+  "generated_at": "2026-02-25T00:00:00Z",
+  "notes": "Curated public packs selected while /assets/generate is disabled.",
+  "runtime_entity_mapping": {
+    "enabled": true,
+    "world_snapshot_field": "runtime_assets",
+    "world_diff_field": "runtime_assets_delta",
+    "world_snapshot_floor_placement_field": "runtime_floor_placements",
+    "world_diff_floor_placement_field": "runtime_floor_placements_delta",
+    "world_snapshot_refresh_ticks": 5,
+    "world_diff_refresh_ticks": 1,
+    "world_diff_asset_mode": "entity_upserts_and_removals",
+    "world_diff_asset_trigger": "asset_id_change",
+    "agent_visual_hysteresis_cadence_ticks": 5,
+    "agent_in_floor_reposition_cadence_ticks": 20,
+    "agent_floor_transition_cadence_ticks": 20,
+    "agent_optional_floor_transition_max_per_tick": 3,
+    "agent_optional_floor_transition_max_per_target_floor_per_tick": 2,
+    "floor_assignment_prefers_previous_positions": true,
+    "world_diff_floor_placement_trigger": "agent_position_or_membership_change_and_prop_fx_asset_or_position_change",
+    "world_diff_churn_probe_script": "scripts/probe_world_diff_churn_v1.sh",
+    "runtime_floor_preview_script": "scripts/render_runtime_floor_preview_v1.sh",
+    "world_diff_asset_keys": [
+      "upsert_agents",
+      "upsert_props",
+      "upsert_ui",
+      "upsert_fx",
+      "remove_agent_ids",
+      "remove_prop_ids",
+      "remove_ui_ids",
+      "remove_fx_ids"
+    ],
+    "world_diff_floor_placement_mode": "entity_upserts_and_removals",
+    "world_diff_floor_placement_keys": [
+      "floors[].upsert_props",
+      "floors[].upsert_agents",
+      "floors[].upsert_fx",
+      "floors[].remove_prop_ids",
+      "floors[].remove_agent_ids",
+      "floors[].remove_fx_ids",
+      "removed_floor_ids"
+    ],
+    "entity_groups": ["agents", "props", "ui", "fx"],
+    "primary_asset_id_families": {
+      "agents": ["agent_coder_*", "agent_worker_*"],
+      "props": ["prop_push_desk", "prop_pull_desk", "prop_commit_desk", "prop_review_desk", "prop_test_desk", "prop_planning_board"],
+      "ui": ["ui_state_*", "ui_prestige_star", "openai_subscription_probe"],
+      "fx": ["fx_upload_burst", "fx_spark_flicker", "fx_fail_pop"]
+    },
+    "notes": "Runtime dashboard resolves asset IDs via /assets/public/v1/catalog and /assets/public/v1/tiles/{asset_id}; runtime_assets_delta and runtime_floor_placements_delta are both patch streams (upserts/removals) merged client-side each tick; floor agent overlays resolve visual asset IDs from runtime_assets.agents by entity_id; optional non-urgent floor transitions are capped globally per tick and per target floor; runtime floor previews can be rendered from live bootstrap/catalog data."
+  },
+  "packs": [
+    {
+      "pack_id": "lpc_revised_the_office",
+      "name": "[LPC Revised] The Office",
+      "source_url": "https://opengameart.org/content/lpc-revised-the-office",
+      "source_domain": "opengameart.org",
+      "licenses": ["CC-BY-SA 3.0", "OGA-BY 3.0"],
+      "attribution_required": true,
+      "share_alike_required": true,
+      "target_asset_classes": [
+        "department_prop",
+        "environment_tile",
+        "ui_overlay"
+      ],
+      "notes": "Imported via ZIP slicing to 32x32 prop cells with compatibility aliases for backlog IDs.",
+      "import_script": "scripts/import_lpc_office_v1.sh",
+      "import_output_dir": "assets/public/v1/imported/lpc_revised_the_office",
+      "imported_assets_count": 292,
+      "compatibility_alias_count": 21,
+      "attribution_file": "assets/public/v1/imported/lpc_revised_the_office/ATTRIBUTION.txt",
+      "status": "imported_v1_stub_ready"
+    },
+    {
+      "pack_id": "urban_character_pack",
+      "name": "Urban Character Pack",
+      "source_url": "https://opengameart.org/content/urban-character-pack",
+      "source_domain": "opengameart.org",
+      "licenses": ["CC0"],
+      "attribution_required": false,
+      "share_alike_required": false,
+      "target_asset_classes": ["agent_sprite", "portrait", "fx"],
+      "notes": "Imported via 40x40 sheet slicing with compatibility aliases for agent IDs.",
+      "import_script": "scripts/import_urban_character_pack_v1.sh",
+      "import_output_dir": "assets/public/v1/imported/urban_character_pack",
+      "imported_assets_count": 1281,
+      "compatibility_alias_count": 6,
+      "status": "imported_v1_stub_ready"
+    },
+    {
+      "pack_id": "perspective_walls_template",
+      "name": "Perspective Walls Template",
+      "source_url": "https://opengameart.org/content/perspective-walls-template",
+      "source_domain": "opengameart.org",
+      "licenses": ["CC0"],
+      "attribution_required": false,
+      "share_alike_required": false,
+      "target_asset_classes": ["environment_tile"],
+      "notes": "Primary wall source for floor room boundaries in v1 test scenes.",
+      "import_script": "scripts/import_perspective_walls_v1.sh",
+      "semantic_alias_script": "scripts/alias_perspective_walls_semantic_v1.sh",
+      "import_output_dir": "assets/public/v1/imported/perspective_walls_template",
+      "imported_assets_count": 73,
+      "base_wall_tile_count": 48,
+      "compatibility_alias_count": 1,
+      "semantic_alias_count": 24,
+      "semantic_confidence_summary": {
+        "high": 13,
+        "medium": 11,
+        "low": 0
+      },
+      "status": "imported_v1_stub_ready"
+    }
+  ]
+}

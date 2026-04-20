@@ -1,0 +1,144 @@
+{
+  "settings": {
+    "stage_thresholds": {
+      "growing_min_score": 35,
+      "mature_min_score": 65,
+      "overloaded_min_score": 90
+    },
+    "expansion": {
+      "max_floors": 8,
+      "build_cooldown_ticks": 120,
+      "min_avg_stage_score": 30
+    }
+  },
+  "templates": [
+    {
+      "template_id": "residential_seed_v1",
+      "floor_type": "residential",
+      "stage": "seed",
+      "capacity_multiplier_pct": 100,
+      "upkeep_multiplier_pct": 100,
+      "rent_curve_delta": 0
+    },
+    {
+      "template_id": "residential_growing_v1",
+      "floor_type": "residential",
+      "stage": "growing",
+      "capacity_multiplier_pct": 112,
+      "upkeep_multiplier_pct": 106,
+      "rent_curve_delta": 1
+    },
+    {
+      "template_id": "residential_mature_v1",
+      "floor_type": "residential",
+      "stage": "mature",
+      "capacity_multiplier_pct": 125,
+      "upkeep_multiplier_pct": 114,
+      "rent_curve_delta": 3
+    },
+    {
+      "template_id": "residential_overloaded_v1",
+      "floor_type": "residential",
+      "stage": "overloaded",
+      "capacity_multiplier_pct": 108,
+      "upkeep_multiplier_pct": 130,
+      "rent_curve_delta": 2
+    },
+    {
+      "template_id": "commercial_seed_v1",
+      "floor_type": "commercial",
+      "stage": "seed",
+      "capacity_multiplier_pct": 100,
+      "upkeep_multiplier_pct": 100,
+      "rent_curve_delta": 0
+    },
+    {
+      "template_id": "commercial_growing_v1",
+      "floor_type": "commercial",
+      "stage": "growing",
+      "capacity_multiplier_pct": 112,
+      "upkeep_multiplier_pct": 106,
+      "rent_curve_delta": 1
+    },
+    {
+      "template_id": "commercial_mature_v1",
+      "floor_type": "commercial",
+      "stage": "mature",
+      "capacity_multiplier_pct": 125,
+      "upkeep_multiplier_pct": 114,
+      "rent_curve_delta": 3
+    },
+    {
+      "template_id": "commercial_overloaded_v1",
+      "floor_type": "commercial",
+      "stage": "overloaded",
+      "capacity_multiplier_pct": 108,
+      "upkeep_multiplier_pct": 130,
+      "rent_curve_delta": 2
+    },
+    {
+      "template_id": "service_seed_v1",
+      "floor_type": "service",
+      "stage": "seed",
+      "capacity_multiplier_pct": 100,
+      "upkeep_multiplier_pct": 100,
+      "rent_curve_delta": 0
+    },
+    {
+      "template_id": "service_growing_v1",
+      "floor_type": "service",
+      "stage": "growing",
+      "capacity_multiplier_pct": 112,
+      "upkeep_multiplier_pct": 106,
+      "rent_curve_delta": 1
+    },
+    {
+      "template_id": "service_mature_v1",
+      "floor_type": "service",
+      "stage": "mature",
+      "capacity_multiplier_pct": 125,
+      "upkeep_multiplier_pct": 114,
+      "rent_curve_delta": 3
+    },
+    {
+      "template_id": "service_overloaded_v1",
+      "floor_type": "service",
+      "stage": "overloaded",
+      "capacity_multiplier_pct": 108,
+      "upkeep_multiplier_pct": 130,
+      "rent_curve_delta": 2
+    },
+    {
+      "template_id": "utility_seed_v1",
+      "floor_type": "utility",
+      "stage": "seed",
+      "capacity_multiplier_pct": 100,
+      "upkeep_multiplier_pct": 100,
+      "rent_curve_delta": 0
+    },
+    {
+      "template_id": "utility_growing_v1",
+      "floor_type": "utility",
+      "stage": "growing",
+      "capacity_multiplier_pct": 112,
+      "upkeep_multiplier_pct": 106,
+      "rent_curve_delta": 1
+    },
+    {
+      "template_id": "utility_mature_v1",
+      "floor_type": "utility",
+      "stage": "mature",
+      "capacity_multiplier_pct": 125,
+      "upkeep_multiplier_pct": 114,
+      "rent_curve_delta": 3
+    },
+    {
+      "template_id": "utility_overloaded_v1",
+      "floor_type": "utility",
+      "stage": "overloaded",
+      "capacity_multiplier_pct": 108,
+      "upkeep_multiplier_pct": 130,
+      "rent_curve_delta": 2
+    }
+  ]
+}

@@ -1,0 +1,6437 @@
+{
+  "pack_id": "lpc_revised_the_office",
+  "pack_name": "[LPC Revised] The Office",
+  "source_url": "https://opengameart.org/sites/default/files/lpc_-_the_office.zip",
+  "source_file": "assets/public/v1/sources/lpc_revised_the_office/lpc_the_office.zip",
+  "license": "CC-BY-SA 3.0, OGA-BY 3.0",
+  "cell_size": 32,
+  "generated_at": "2026-02-25T03:11:59.045421+00:00",
+  "assets": [
+    {
+      "asset_id": "prop_lpc_bins_r0c0",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r0c1",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r0c2",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r0c3",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r0c4",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 0,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r0c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r1c0",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r1c1",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r1c2",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r1c3",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r1c4",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 1,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r1c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r2c0",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r2c1",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r2c2",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r2c3",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 2,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r2c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r2c4",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 2,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r2c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r3c0",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 3,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r3c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r3c1",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 3,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r3c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r3c2",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 3,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r3c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r3c3",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 3,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r3c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_bins_r3c4",
+      "source_sheet": "Bins.png",
+      "source_cell": {
+        "row": 3,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_bins_r3c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_bins"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r0c0",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r0c1",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r0c2",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r0c3",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r1c0",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r1c1",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r1c2",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r1c3",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r2c0",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r2c1",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r2c2",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r2c3",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 2,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r2c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r3c0",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 3,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r3c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r3c1",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 3,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r3c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r3c2",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 3,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r3c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r3c3",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 3,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r3c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r4c0",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 4,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r4c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r4c1",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 4,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r4c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r4c2",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 4,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r4c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r4c3",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 4,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r4c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r5c0",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 5,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r5c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r5c1",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 5,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r5c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r5c2",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 5,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r5c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_card_table_r5c3",
+      "source_sheet": "Card Table.png",
+      "source_cell": {
+        "row": 5,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_card_table_r5c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_card_table"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_coffee_cup_r0c0",
+      "source_sheet": "Coffee Cup.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_coffee_cup_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_coffee_cup"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_coffee_maker_r0c0",
+      "source_sheet": "Coffee Maker.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_coffee_maker_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_coffee_maker"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_coffee_maker_r0c1",
+      "source_sheet": "Coffee Maker.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_coffee_maker_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_coffee_maker"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_coffee_maker_r1c0",
+      "source_sheet": "Coffee Maker.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_coffee_maker_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_coffee_maker"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_coffee_maker_r1c1",
+      "source_sheet": "Coffee Maker.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_coffee_maker_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_coffee_maker"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_copy_light_r0c0",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_copy_light_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine_copy_light"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_copy_light_r0c1",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_copy_light_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine_copy_light"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_copy_light_r0c2",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_copy_light_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine_copy_light"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_copy_light_r0c3",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_copy_light_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine_copy_light"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_copy_light_r0c4",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_copy_light_r0c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine_copy_light"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_copy_light_r0c5",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_copy_light_r0c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine_copy_light"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_copy_light_r0c6",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_copy_light_r0c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine_copy_light"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_copy_light_r0c7",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_copy_light_r0c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine_copy_light"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_r0c0",
+      "source_sheet": "Copy Machine.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_r0c1",
+      "source_sheet": "Copy Machine.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_r1c0",
+      "source_sheet": "Copy Machine.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_copy_machine_r1c1",
+      "source_sheet": "Copy Machine.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_copy_machine_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_copy_machine"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r0c0",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r0c1",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r0c2",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r0c3",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r0c4",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r0c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r1c0",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r1c1",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r1c2",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r1c3",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r1c4",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 1,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r1c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r2c0",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r2c1",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r2c2",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r2c3",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 2,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r2c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r2c4",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 2,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r2c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r3c0",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 3,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r3c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r3c1",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 3,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r3c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_desk_ornate_r3c2",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 3,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_desk_ornate_r3c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_desk_ornate"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r0c0",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r0c1",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r0c2",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r0c3",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r1c0",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r1c1",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r1c2",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r1c3",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r2c0",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r2c1",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r2c2",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r2c3",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 2,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r2c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r3c0",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 3,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r3c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r3c1",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 3,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r3c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r3c2",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 3,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r3c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_laptop_r3c3",
+      "source_sheet": "Laptop.png",
+      "source_cell": {
+        "row": 3,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_laptop_r3c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_laptop"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r0c0",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r0c1",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r0c2",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r1c0",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r1c1",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r1c2",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r2c0",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r2c1",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_mailboxes_r2c2",
+      "source_sheet": "Mailboxes.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_mailboxes_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_mailboxes"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_office_portraits_r0c0",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_office_portraits_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_office_portraits"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_office_portraits_r0c1",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_office_portraits_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_office_portraits"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_office_portraits_r1c0",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_office_portraits_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_office_portraits"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_office_portraits_r1c1",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_office_portraits_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_office_portraits"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_office_portraits_r2c0",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_office_portraits_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_office_portraits"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r0c0",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r0c1",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r0c2",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r0c3",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r1c0",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r1c1",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r1c2",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r1c3",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r2c0",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r2c1",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r2c2",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r2c3",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 2,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r2c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r3c0",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 3,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r3c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r3c1",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 3,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r3c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r3c2",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 3,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r3c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_rotary_phones_r3c3",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 3,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_rotary_phones_r3c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_rotary_phones"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_shopping_cart_r0c0",
+      "source_sheet": "Shopping Cart.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_shopping_cart_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_shopping_cart"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_shopping_cart_r1c0",
+      "source_sheet": "Shopping Cart.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_shopping_cart_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_shopping_cart"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r0c0",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r0c1",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r0c2",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r0c3",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r0c4",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 0,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r0c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r0c5",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 0,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r0c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r0c6",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 0,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r0c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r0c7",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 0,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r0c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r1c0",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r1c1",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r1c2",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r1c3",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r1c4",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 1,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r1c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r1c5",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 1,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r1c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r1c6",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 1,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r1c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r1c7",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 1,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r1c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r2c0",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r2c1",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r2c2",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r2c3",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 2,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r2c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r2c4",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 2,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r2c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r2c5",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 2,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r2c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r2c6",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 2,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r2c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r2c7",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 2,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r2c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r3c0",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 3,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r3c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r3c1",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 3,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r3c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r3c2",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 3,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r3c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r3c3",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 3,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r3c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r3c4",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 3,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r3c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r3c5",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 3,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r3c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r3c6",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 3,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r3c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r3c7",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 3,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r3c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r4c0",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 4,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r4c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r4c1",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 4,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r4c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r4c2",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 4,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r4c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r4c3",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 4,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r4c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r4c6",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 4,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r4c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r4c7",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 4,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r4c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r5c0",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 5,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r5c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r5c1",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 5,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r5c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r5c2",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 5,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r5c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r5c3",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 5,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r5c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r5c6",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 5,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r5c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_sink_r5c7",
+      "source_sheet": "Sink.png",
+      "source_cell": {
+        "row": 5,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_sink_r5c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_sink"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r0c0",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r0c1",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r0c2",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r0c3",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r0c4",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 0,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r0c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r0c5",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 0,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r0c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r1c0",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r1c1",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r1c2",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r1c3",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r1c4",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 1,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r1c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r1c5",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 1,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r1c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c0",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c1",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c2",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c3",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c4",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c5",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c6",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c7",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r2c8",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 2,
+        "col": 8
+      },
+      "source_rect": {
+        "x": 256,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r2c8.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c0",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c1",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c2",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c3",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c4",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c5",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c6",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c7",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_tv_widescreen_r3c8",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 3,
+        "col": 8
+      },
+      "source_rect": {
+        "x": 256,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_tv_widescreen_r3c8.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_tv_widescreen"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_water_cooler_r0c0",
+      "source_sheet": "Water Cooler.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_water_cooler_r0c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_water_cooler"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_water_cooler_r0c1",
+      "source_sheet": "Water Cooler.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_water_cooler_r0c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_water_cooler"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_water_cooler_r0c2",
+      "source_sheet": "Water Cooler.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_water_cooler_r0c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_water_cooler"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_water_cooler_r0c3",
+      "source_sheet": "Water Cooler.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_water_cooler_r0c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_water_cooler"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_water_cooler_r1c0",
+      "source_sheet": "Water Cooler.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_water_cooler_r1c0.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_water_cooler"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_water_cooler_r1c1",
+      "source_sheet": "Water Cooler.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_water_cooler_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_water_cooler"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_water_cooler_r1c2",
+      "source_sheet": "Water Cooler.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_water_cooler_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_water_cooler"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_water_cooler_r1c3",
+      "source_sheet": "Water Cooler.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_water_cooler_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_water_cooler"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r0c4",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 0,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r0c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r0c5",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 0,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r0c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r0c6",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 0,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r0c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r0c12",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 0,
+        "col": 12
+      },
+      "source_rect": {
+        "x": 384,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r0c12.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r0c13",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 0,
+        "col": 13
+      },
+      "source_rect": {
+        "x": 416,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r0c13.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r0c14",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 0,
+        "col": 14
+      },
+      "source_rect": {
+        "x": 448,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r0c14.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c1",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c2",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c3",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c4",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c5",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c6",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c7",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c8",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 8
+      },
+      "source_rect": {
+        "x": 256,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c8.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c9",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 9
+      },
+      "source_rect": {
+        "x": 288,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c9.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c10",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 10
+      },
+      "source_rect": {
+        "x": 320,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c10.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c11",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 11
+      },
+      "source_rect": {
+        "x": 352,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c11.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c12",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 12
+      },
+      "source_rect": {
+        "x": 384,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c12.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c13",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 13
+      },
+      "source_rect": {
+        "x": 416,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c13.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r1c14",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 14
+      },
+      "source_rect": {
+        "x": 448,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r1c14.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c1",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c2",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c3",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c4",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c5",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c6",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c7",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c8",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 8
+      },
+      "source_rect": {
+        "x": 256,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c8.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c9",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 9
+      },
+      "source_rect": {
+        "x": 288,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c9.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c10",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 10
+      },
+      "source_rect": {
+        "x": 320,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c10.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c11",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 11
+      },
+      "source_rect": {
+        "x": 352,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c11.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c12",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 12
+      },
+      "source_rect": {
+        "x": 384,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c12.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c13",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 13
+      },
+      "source_rect": {
+        "x": 416,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c13.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r2c14",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 2,
+        "col": 14
+      },
+      "source_rect": {
+        "x": 448,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r2c14.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c1",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c2",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c3",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c3.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c4",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c5",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c6",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c7",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c8",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 8
+      },
+      "source_rect": {
+        "x": 256,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c8.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c9",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 9
+      },
+      "source_rect": {
+        "x": 288,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c9.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c10",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 10
+      },
+      "source_rect": {
+        "x": 320,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c10.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c11",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 11
+      },
+      "source_rect": {
+        "x": 352,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c11.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c12",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 12
+      },
+      "source_rect": {
+        "x": 384,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c12.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c13",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 13
+      },
+      "source_rect": {
+        "x": 416,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c13.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r3c14",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 3,
+        "col": 14
+      },
+      "source_rect": {
+        "x": 448,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r3c14.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c1",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c2",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c2.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c4",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c4.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c5",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c5.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c6",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c6.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c7",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c7.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c8",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 8
+      },
+      "source_rect": {
+        "x": 256,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c8.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c9",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 9
+      },
+      "source_rect": {
+        "x": 288,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c9.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c10",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 10
+      },
+      "source_rect": {
+        "x": 320,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c10.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c11",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 11
+      },
+      "source_rect": {
+        "x": 352,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c11.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c12",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 12
+      },
+      "source_rect": {
+        "x": 384,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c12.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c13",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 13
+      },
+      "source_rect": {
+        "x": 416,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c13.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r4c14",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 4,
+        "col": 14
+      },
+      "source_rect": {
+        "x": 448,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r4c14.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_lpc_liberated_palette_ramps_r5c1",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 5,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_lpc_liberated_palette_ramps_r5c1.png",
+      "tags": [
+        "department_prop",
+        "environment_tile",
+        "lpc",
+        "office",
+        "sheet_liberated_palette_ramps"
+      ]
+    },
+    {
+      "asset_id": "prop_push_desk",
+      "alias_of": "prop_lpc_desk_ornate_r0c0",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_push_desk.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "prop_pull_desk",
+      "alias_of": "prop_lpc_desk_ornate_r0c1",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_pull_desk.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "prop_commit_desk",
+      "alias_of": "prop_lpc_desk_ornate_r0c2",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_commit_desk.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "prop_review_desk",
+      "alias_of": "prop_lpc_desk_ornate_r0c3",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_review_desk.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "prop_test_desk",
+      "alias_of": "prop_lpc_desk_ornate_r0c4",
+      "source_sheet": "Desk, Ornate.png",
+      "source_cell": {
+        "row": 0,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_test_desk.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "prop_planning_board",
+      "alias_of": "prop_lpc_office_portraits_r0c0",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/prop_planning_board.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "portrait_coding_neutral",
+      "alias_of": "prop_lpc_office_portraits_r0c0",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/portrait_coding_neutral.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "portrait_coding_thinking",
+      "alias_of": "prop_lpc_office_portraits_r0c1",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/portrait_coding_thinking.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "portrait_coding_warning",
+      "alias_of": "prop_lpc_office_portraits_r1c0",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 1,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/portrait_coding_warning.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "portrait_coding_success",
+      "alias_of": "prop_lpc_office_portraits_r1c1",
+      "source_sheet": "Office Portraits.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/portrait_coding_success.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "ui_prestige_star",
+      "alias_of": "prop_lpc_rotary_phones_r0c0",
+      "source_sheet": "Rotary Phones.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/ui_prestige_star.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "ui_state_healthy",
+      "alias_of": "prop_lpc_copy_machine_copy_light_r0c0",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/ui_state_healthy.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "ui_state_degraded",
+      "alias_of": "prop_lpc_copy_machine_copy_light_r0c1",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/ui_state_degraded.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "ui_state_stalled",
+      "alias_of": "prop_lpc_copy_machine_copy_light_r0c2",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 2
+      },
+      "source_rect": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/ui_state_stalled.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "ui_state_broken",
+      "alias_of": "prop_lpc_copy_machine_copy_light_r0c3",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 3
+      },
+      "source_rect": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/ui_state_broken.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "fx_spark_flicker",
+      "alias_of": "prop_lpc_copy_machine_copy_light_r0c4",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 4
+      },
+      "source_rect": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/fx_spark_flicker.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "fx_upload_burst",
+      "alias_of": "prop_lpc_copy_machine_copy_light_r0c5",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 5
+      },
+      "source_rect": {
+        "x": 160,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/fx_upload_burst.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "fx_fail_pop",
+      "alias_of": "prop_lpc_copy_machine_copy_light_r0c6",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 6
+      },
+      "source_rect": {
+        "x": 192,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/fx_fail_pop.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "openai_subscription_probe",
+      "alias_of": "prop_lpc_copy_machine_copy_light_r0c7",
+      "source_sheet": "Copy Machine - Copy Light.png",
+      "source_cell": {
+        "row": 0,
+        "col": 7
+      },
+      "source_rect": {
+        "x": 224,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/openai_subscription_probe.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "tile_floor_clean",
+      "alias_of": "prop_lpc_liberated_palette_ramps_r1c1",
+      "source_sheet": "_ Liberated Palette Ramps.png",
+      "source_cell": {
+        "row": 1,
+        "col": 1
+      },
+      "source_rect": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/tile_floor_clean.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    },
+    {
+      "asset_id": "tile_window_night",
+      "alias_of": "prop_lpc_tv_widescreen_r0c0",
+      "source_sheet": "TV, Widescreen.png",
+      "source_cell": {
+        "row": 0,
+        "col": 0
+      },
+      "source_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "file": "assets/public/v1/imported/lpc_revised_the_office/tiles/tile_window_night.png",
+      "tags": [
+        "compat_alias",
+        "lpc",
+        "office"
+      ]
+    }
+  ],
+  "compatibility_aliases": {
+    "prop_push_desk": "prop_lpc_desk_ornate_r0c0",
+    "prop_pull_desk": "prop_lpc_desk_ornate_r0c1",
+    "prop_commit_desk": "prop_lpc_desk_ornate_r0c2",
+    "prop_review_desk": "prop_lpc_desk_ornate_r0c3",
+    "prop_test_desk": "prop_lpc_desk_ornate_r0c4",
+    "prop_planning_board": "prop_lpc_office_portraits_r0c0",
+    "portrait_coding_neutral": "prop_lpc_office_portraits_r0c0",
+    "portrait_coding_thinking": "prop_lpc_office_portraits_r0c1",
+    "portrait_coding_warning": "prop_lpc_office_portraits_r1c0",
+    "portrait_coding_success": "prop_lpc_office_portraits_r1c1",
+    "ui_prestige_star": "prop_lpc_rotary_phones_r0c0",
+    "ui_state_healthy": "prop_lpc_copy_machine_copy_light_r0c0",
+    "ui_state_degraded": "prop_lpc_copy_machine_copy_light_r0c1",
+    "ui_state_stalled": "prop_lpc_copy_machine_copy_light_r0c2",
+    "ui_state_broken": "prop_lpc_copy_machine_copy_light_r0c3",
+    "fx_spark_flicker": "prop_lpc_copy_machine_copy_light_r0c4",
+    "fx_upload_burst": "prop_lpc_copy_machine_copy_light_r0c5",
+    "fx_fail_pop": "prop_lpc_copy_machine_copy_light_r0c6",
+    "openai_subscription_probe": "prop_lpc_copy_machine_copy_light_r0c7",
+    "tile_floor_clean": "prop_lpc_liberated_palette_ramps_r1c1",
+    "tile_window_night": "prop_lpc_tv_widescreen_r0c0"
+  }
+}

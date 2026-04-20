@@ -1,0 +1,5 @@
+Pack: [LPC Revised] The Office
+Source: https://opengameart.org/content/lpc-revised-the-office
+Author: Eliza Wyatt
+Additional note from source: Elements of the Ornate Desk and the Office Portraits use assets by Lanea Zimmerman (Sharm).
+License: CC-BY-SA 3.0 and OGA-BY 3.0

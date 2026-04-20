@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "tile_window_night",
+    "asset_class": "environment_tile",
+    "width": 16,
+    "height": 16,
+    "frames": 2,
+    "tags": ["tile","window","night"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi night window tile with city flicker"
+  }
+}

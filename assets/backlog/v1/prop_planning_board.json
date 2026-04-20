@@ -1,0 +1,15 @@
+{
+  "spec": {
+    "tower_id": "tower-1",
+    "floor_id": "floor-a",
+    "department_id": "coding",
+    "name": "prop_planning_board",
+    "asset_class": "department_prop",
+    "width": 32,
+    "height": 32,
+    "frames": 1,
+    "tags": ["prop","planning","board"],
+    "palette_id": "tower_v1",
+    "prompt": "low-fi planning whiteboard with sprint columns"
+  }
+}
