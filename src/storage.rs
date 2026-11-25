@@ -32,17 +32,17 @@ impl Storage {
     }
 
     pub async fn load_latest_snapshot(&self, tower_id: &str) -> Option<TowerState> {
-        if let Some(redis_client) = &self.redis {
-            if let Ok(mut conn) = redis_client.get_multiplexed_async_connection().await {
-                let key = format!("tower:{tower_id}:snapshot");
-                match conn.get::<_, Option<String>>(&key).await {
-                    Ok(Some(v)) => match serde_json::from_str::<TowerState>(&v) {
-                        Ok(state) => return Some(state),
-                        Err(e) => warn!("failed to deserialize redis snapshot: {e}"),
-                    },
-                    Ok(None) => {}
-                    Err(e) => warn!("failed to read redis snapshot: {e}"),
-                }
+        if let Some(redis_client) = &self.redis
+            && let Ok(mut conn) = redis_client.get_multiplexed_async_connection().await
+        {
+            let key = format!("tower:{tower_id}:snapshot");
+            match conn.get::<_, Option<String>>(&key).await {
+                Ok(Some(v)) => match serde_json::from_str::<TowerState>(&v) {
+                    Ok(state) => return Some(state),
+                    Err(e) => warn!("failed to deserialize redis snapshot: {e}"),
+                },
+                Ok(None) => {}
+                Err(e) => warn!("failed to read redis snapshot: {e}"),
             }
         }
 
@@ -84,10 +84,10 @@ impl Storage {
             match redis_client.get_multiplexed_async_connection().await {
                 Ok(mut conn) => {
                     let key = format!("tower:{}:snapshot", world.tower_id);
-                    if let Ok(snapshot_json) = serde_json::to_string(world) {
-                        if let Err(e) = conn.set::<_, _, ()>(key, snapshot_json).await {
-                            warn!("redis set snapshot failed: {e}");
-                        }
+                    if let Ok(snapshot_json) = serde_json::to_string(world)
+                        && let Err(e) = conn.set::<_, _, ()>(key, snapshot_json).await
+                    {
+                        warn!("redis set snapshot failed: {e}");
                     }
                 }
                 Err(e) => warn!("redis connection failed: {e}"),
@@ -98,15 +98,13 @@ impl Storage {
             if let Err(e) = persist_metrics(pg_pool, &world.tower_id, metrics).await {
                 warn!("persist metrics failed: {e}");
             }
-            if !events.is_empty() {
-                if let Err(e) = persist_events(pg_pool, &world.tower_id, events).await {
-                    warn!("persist events failed: {e}");
-                }
+            if !events.is_empty()
+                && let Err(e) = persist_events(pg_pool, &world.tower_id, events).await
+            {
+                warn!("persist events failed: {e}");
             }
-            if persist_snapshot {
-                if let Err(e) = persist_snapshot_row(pg_pool, world).await {
-                    warn!("persist snapshot failed: {e}");
-                }
+            if persist_snapshot && let Err(e) = persist_snapshot_row(pg_pool, world).await {
+                warn!("persist snapshot failed: {e}");
             }
         }
     }

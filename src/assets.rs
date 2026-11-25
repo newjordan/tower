@@ -890,20 +890,20 @@ async fn call_openai_images(
 
     let parsed: Value =
         serde_json::from_str(&text).map_err(|e| format!("openai response parse failed: {e}"))?;
-    if let Some(data) = parsed.get("data").and_then(|v| v.as_array()) {
-        if let Some(first) = data.first() {
-            if let Some(b64) = first.get("b64_json").and_then(|v| v.as_str()) {
-                let bytes = base64::engine::general_purpose::STANDARD
-                    .decode(b64.as_bytes())
-                    .map_err(|e| format!("openai image b64 decode failed: {e}"))?;
-                fs::write(generated_image_path, bytes)
-                    .await
-                    .map_err(|e| format!("write openai generated image: {e}"))?;
-                return Ok(true);
-            }
-            if let Some(url) = first.get("url").and_then(|v| v.as_str()) {
-                return download_image(url, generated_image_path).await;
-            }
+    if let Some(data) = parsed.get("data").and_then(|v| v.as_array())
+        && let Some(first) = data.first()
+    {
+        if let Some(b64) = first.get("b64_json").and_then(|v| v.as_str()) {
+            let bytes = base64::engine::general_purpose::STANDARD
+                .decode(b64.as_bytes())
+                .map_err(|e| format!("openai image b64 decode failed: {e}"))?;
+            fs::write(generated_image_path, bytes)
+                .await
+                .map_err(|e| format!("write openai generated image: {e}"))?;
+            return Ok(true);
+        }
+        if let Some(url) = first.get("url").and_then(|v| v.as_str()) {
+            return download_image(url, generated_image_path).await;
         }
     }
     if let Some(url) = extract_first_http_url(&parsed) {
@@ -956,10 +956,10 @@ async fn call_replicate_prediction(
 
     let parsed: Value =
         serde_json::from_str(&text).map_err(|e| format!("replicate response parse failed: {e}"))?;
-    if let Some(output) = parsed.get("output") {
-        if let Some(url) = extract_first_http_url(output) {
-            return download_image(&url, generated_image_path).await;
-        }
+    if let Some(output) = parsed.get("output")
+        && let Some(url) = extract_first_http_url(output)
+    {
+        return download_image(&url, generated_image_path).await;
     }
     if let Some(url) = extract_first_http_url(&parsed) {
         return download_image(&url, generated_image_path).await;
@@ -1056,11 +1056,11 @@ async fn call_comfyui_workflow(
             .text()
             .await
             .map_err(|e| format!("comfy history body read failed: {e}"))?;
-        if let Ok(v) = serde_json::from_str::<Value>(&txt) {
-            if find_comfy_image_descriptor(&v, output_node.as_deref()).is_some() {
-                history_json = Some(v);
-                break;
-            }
+        if let Ok(v) = serde_json::from_str::<Value>(&txt)
+            && find_comfy_image_descriptor(&v, output_node.as_deref()).is_some()
+        {
+            history_json = Some(v);
+            break;
         }
         sleep(Duration::from_millis(500)).await;
     }
@@ -1084,17 +1084,18 @@ async fn call_comfyui_workflow(
 fn apply_comfy_auth(builder: RequestBuilder) -> RequestBuilder {
     let header_name = std::env::var("COMFY_AUTH_HEADER").ok();
     let token = std::env::var("COMFY_AUTH_TOKEN").ok();
-    if let (Some(h), Some(t)) = (header_name, token) {
-        if !h.trim().is_empty() && !t.trim().is_empty() {
-            return builder.header(h, t);
-        }
+    if let (Some(h), Some(t)) = (header_name, token)
+        && !h.trim().is_empty()
+        && !t.trim().is_empty()
+    {
+        return builder.header(h, t);
     }
     let basic_user = std::env::var("COMFY_BASIC_USER").ok();
     let basic_pass = std::env::var("COMFY_BASIC_PASS").ok();
-    if let (Some(u), Some(p)) = (basic_user, basic_pass) {
-        if !u.trim().is_empty() {
-            return builder.basic_auth(u, Some(p));
-        }
+    if let (Some(u), Some(p)) = (basic_user, basic_pass)
+        && !u.trim().is_empty()
+    {
+        return builder.basic_auth(u, Some(p));
     }
     builder
 }
@@ -1121,10 +1122,10 @@ async fn download_image_comfy(url: &str, output_path: &Path) -> Result<bool, Str
 fn substitute_prompt_text(prompt_json: &mut Value, prompt: &str) {
     if let Some(obj) = prompt_json.as_object_mut() {
         for node in obj.values_mut() {
-            if let Some(inputs) = node.get_mut("inputs").and_then(|v| v.as_object_mut()) {
-                if let Some(text) = inputs.get_mut("text") {
-                    *text = Value::String(prompt.to_string());
-                }
+            if let Some(inputs) = node.get_mut("inputs").and_then(|v| v.as_object_mut())
+                && let Some(text) = inputs.get_mut("text")
+            {
+                *text = Value::String(prompt.to_string());
             }
         }
     }
@@ -1141,23 +1142,23 @@ fn find_comfy_image_descriptor(
                     if node_id_filter.is_some_and(|filter| filter != node_id) {
                         continue;
                     }
-                    if let Some(images) = node_data.get("images").and_then(|v| v.as_array()) {
-                        for image in images {
-                            let filename = image.get("filename").and_then(|v| v.as_str())?;
-                            let subfolder = image
-                                .get("subfolder")
-                                .and_then(|v| v.as_str())
-                                .unwrap_or("");
-                            let image_type = image
-                                .get("type")
-                                .and_then(|v| v.as_str())
-                                .unwrap_or("output");
-                            return Some((
-                                filename.to_string(),
-                                subfolder.to_string(),
-                                image_type.to_string(),
-                            ));
-                        }
+                    if let Some(images) = node_data.get("images").and_then(|v| v.as_array())
+                        && let Some(image) = images.first()
+                    {
+                        let filename = image.get("filename").and_then(|v| v.as_str())?;
+                        let subfolder = image
+                            .get("subfolder")
+                            .and_then(|v| v.as_str())
+                            .unwrap_or("");
+                        let image_type = image
+                            .get("type")
+                            .and_then(|v| v.as_str())
+                            .unwrap_or("output");
+                        return Some((
+                            filename.to_string(),
+                            subfolder.to_string(),
+                            image_type.to_string(),
+                        ));
                     }
                 }
             }
@@ -1179,10 +1180,10 @@ fn extract_first_http_url(value: &Value) -> Option<String> {
         Value::Object(map) => {
             let prioritized = ["url", "imageUrl", "image_url", "uri", "src", "cdnUrl"];
             for key in prioritized {
-                if let Some(v) = map.get(key) {
-                    if let Some(found) = extract_first_http_url(v) {
-                        return Some(found);
-                    }
+                if let Some(v) = map.get(key)
+                    && let Some(found) = extract_first_http_url(v)
+                {
+                    return Some(found);
                 }
             }
             map.values().find_map(extract_first_http_url)

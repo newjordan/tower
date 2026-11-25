@@ -309,7 +309,7 @@ fn floor_prestige_from_usage(usage: &FloorUsage, elite: bool, now: DateTime<Utc>
 
 fn elite_floor_ids(state: &OpsState) -> Vec<String> {
     let mut floors = state.floor_usage.values().collect::<Vec<_>>();
-    floors.sort_by(|a, b| b.current_streak_days.cmp(&a.current_streak_days));
+    floors.sort_by_key(|floor| std::cmp::Reverse(floor.current_streak_days));
     let count = floors.len();
     if count == 0 {
         return vec![];
