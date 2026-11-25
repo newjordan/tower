@@ -1,5 +1,5 @@
 use chrono::{DateTime, Utc};
-use rand::{Rng, SeedableRng, rngs::StdRng};
+use rand::{RngExt, SeedableRng, rngs::StdRng};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::OnceLock;
@@ -7,7 +7,8 @@ use uuid::Uuid;
 
 pub const MAX_AGENTS: usize = 100;
 pub const DEFAULT_TOWER_ID: &str = "tower-1";
-const FLOOR_TEMPLATE_CATALOG_JSON: &str = include_str!("../assets/templates/floor_templates_v1.json");
+const FLOOR_TEMPLATE_CATALOG_JSON: &str =
+    include_str!("../assets/templates/floor_templates_v1.json");
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[serde(rename_all = "snake_case")]
@@ -46,21 +47,12 @@ struct FloorTemplateSpec {
     rent_curve_delta: i32,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Default, Deserialize)]
 struct FloorTemplateSettings {
     #[serde(default)]
     stage_thresholds: StageThresholdSettings,
     #[serde(default)]
     expansion: ExpansionSettings,
-}
-
-impl Default for FloorTemplateSettings {
-    fn default() -> Self {
-        Self {
-            stage_thresholds: StageThresholdSettings::default(),
-            expansion: ExpansionSettings::default(),
-        }
-    }
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -343,7 +335,10 @@ pub enum DirectiveAction {
     #[serde(rename = "set_layout_bias")]
     SetLayoutBias { work_pct: f32, break_pct: f32 },
     #[serde(rename = "install_script")]
-    InstallScript { script_id: String, config: ScriptConfig },
+    InstallScript {
+        script_id: String,
+        config: ScriptConfig,
+    },
     #[serde(rename = "install_pipeline")]
     InstallPipeline { kind: PipelineKind },
     #[serde(rename = "upgrade_furniture")]
@@ -992,39 +987,39 @@ pub fn run_tick(state: &mut TowerState) -> TickResult {
             econ.unmet_need_penalty += i64::from(low_need_count);
         }
 
-        if let Some(lease_id) = agent.lease_id {
-            if let Some(lease) = state.leases.get_mut(&lease_id) {
-                if state.tick >= lease.due_tick && lease.status != LeaseStatus::Evicted {
-                    if agent.credits >= lease.rent {
-                        agent.credits -= lease.rent;
-                        econ.rent_collected += i64::from(lease.rent);
-                        lease.status = LeaseStatus::Active;
-                        lease.due_tick = state.tick + 20;
-                        agent.debt_ticks = 0;
-                    } else {
-                        agent.debt_ticks = agent.debt_ticks.saturating_add(1);
-                        lease.status = LeaseStatus::Delinquent;
-                        if agent.debt_ticks >= 3 {
-                            lease.status = LeaseStatus::Evicted;
-                            let event = SimEvent {
-                                id: Uuid::new_v4(),
-                                tick: state.tick,
-                                timestamp: Utc::now(),
-                                category: "lease".to_string(),
-                                severity: "high".to_string(),
-                                message: format!("Agent {} was evicted for non-payment", agent.id),
-                                refs: vec![agent.id.to_string(), lease.id.to_string()],
-                            };
-                            new_events.push(event);
-                            alerts.push(Alert {
-                                id: Uuid::new_v4(),
-                                severity: "high".to_string(),
-                                category: "rent_crisis".to_string(),
-                                message: "Eviction occurred due to unpaid rent".to_string(),
-                                refs: vec![agent.id.to_string()],
-                            });
-                        }
-                    }
+        if let Some(lease_id) = agent.lease_id
+            && let Some(lease) = state.leases.get_mut(&lease_id)
+            && state.tick >= lease.due_tick
+            && lease.status != LeaseStatus::Evicted
+        {
+            if agent.credits >= lease.rent {
+                agent.credits -= lease.rent;
+                econ.rent_collected += i64::from(lease.rent);
+                lease.status = LeaseStatus::Active;
+                lease.due_tick = state.tick + 20;
+                agent.debt_ticks = 0;
+            } else {
+                agent.debt_ticks = agent.debt_ticks.saturating_add(1);
+                lease.status = LeaseStatus::Delinquent;
+                if agent.debt_ticks >= 3 {
+                    lease.status = LeaseStatus::Evicted;
+                    let event = SimEvent {
+                        id: Uuid::new_v4(),
+                        tick: state.tick,
+                        timestamp: Utc::now(),
+                        category: "lease".to_string(),
+                        severity: "high".to_string(),
+                        message: format!("Agent {} was evicted for non-payment", agent.id),
+                        refs: vec![agent.id.to_string(), lease.id.to_string()],
+                    };
+                    new_events.push(event);
+                    alerts.push(Alert {
+                        id: Uuid::new_v4(),
+                        severity: "high".to_string(),
+                        category: "rent_crisis".to_string(),
+                        message: "Eviction occurred due to unpaid rent".to_string(),
+                        refs: vec![agent.id.to_string()],
+                    });
                 }
             }
         }
@@ -1131,7 +1126,10 @@ fn floor_template_catalog() -> &'static FloorTemplateCatalogResolved {
     })
 }
 
-fn find_floor_template(floor_type: FloorType, stage: FloorStage) -> Option<&'static FloorTemplateSpec> {
+fn find_floor_template(
+    floor_type: FloorType,
+    stage: FloorStage,
+) -> Option<&'static FloorTemplateSpec> {
     floor_template_catalog()
         .templates
         .iter()
@@ -1225,7 +1223,8 @@ fn refresh_floor_progression(state: &mut TowerState, out_events: &mut Vec<SimEve
         let mood_stress = ((100 - avg_mood).clamp(0, 100) / 3).clamp(0, 25);
         let alert_stress = (critical_alerts * 4).clamp(0, 20);
         let need_stress = (unmet_penalty / 12).clamp(0, 10);
-        let stage_score = (load_score + mood_stress + alert_stress + need_stress).clamp(0, 100) as u8;
+        let stage_score =
+            (load_score + mood_stress + alert_stress + need_stress).clamp(0, 100) as u8;
         let next_stage = stage_from_score(stage_score);
         if next_stage != floor.stage {
             out_events.push(SimEvent {
@@ -1244,7 +1243,11 @@ fn refresh_floor_progression(state: &mut TowerState, out_events: &mut Vec<SimEve
                     floor_stage_label(floor.stage),
                     floor_stage_label(next_stage)
                 ),
-                refs: vec![floor.id.to_string(), floor.name.clone(), floor.template_id.clone()],
+                refs: vec![
+                    floor.id.to_string(),
+                    floor.name.clone(),
+                    floor.template_id.clone(),
+                ],
             });
         }
         floor.stage = next_stage;
@@ -1262,11 +1265,9 @@ fn refresh_floor_progression(state: &mut TowerState, out_events: &mut Vec<SimEve
         let rent_delta = template
             .map(|spec| spec.rent_curve_delta)
             .unwrap_or_else(|| stage_rent_curve_delta(floor.stage));
-        floor.capacity =
-            ((u32::from(floor.base_capacity.max(1)) * u32::from(capacity_pct))
-                / 100)
-                .max(1)
-                .min(u32::from(u16::MAX)) as u16;
+        floor.capacity = ((u32::from(floor.base_capacity.max(1)) * u32::from(capacity_pct)) / 100)
+            .max(1)
+            .min(u32::from(u16::MAX)) as u16;
         floor.upkeep = ((floor.base_upkeep.max(1) * upkeep_pct) / 100).max(1);
         floor.rent_curve = (floor.base_rent_curve.max(1) + rent_delta).max(1);
     }
@@ -1290,6 +1291,15 @@ fn floor_type_build_label(floor_type: FloorType) -> &'static str {
     }
 }
 
+fn floor_type_tie_rank(floor_type: FloorType) -> u8 {
+    match floor_type {
+        FloorType::Residential => 0,
+        FloorType::Commercial => 1,
+        FloorType::Service => 2,
+        FloorType::Utility => 3,
+    }
+}
+
 fn floor_type_ref_label(floor_type: FloorType) -> &'static str {
     match floor_type {
         FloorType::Residential => "residential",
@@ -1306,9 +1316,16 @@ fn next_expansion_floor_type(state: &TowerState) -> FloorType {
             *overloaded_by_type.entry(floor.floor_type).or_default() += 1;
         }
     }
+    // Equal overload counts used to follow HashMap iteration order, which is
+    // reseeded per map. Rank is a total tie-break so the same tower always
+    // expands the same way. A strictly higher count still wins.
     let dominant = overloaded_by_type
         .into_iter()
-        .max_by_key(|(_, count)| *count)
+        .max_by(|left, right| {
+            left.1
+                .cmp(&right.1)
+                .then_with(|| floor_type_tie_rank(left.0).cmp(&floor_type_tie_rank(right.0)))
+        })
         .map(|(floor_type, _)| floor_type)
         .unwrap_or(FloorType::Commercial);
     match dominant {
@@ -1409,28 +1426,34 @@ fn saturating_add(v: u8, amount: u8) -> u8 {
 }
 
 pub fn choose_goal(agent: &Agent) -> DecisionTrace {
-    let mut scores = HashMap::new();
-    scores.insert("eat".to_string(), 100 - agent.needs.hunger as i32);
-    scores.insert("rest".to_string(), 100 - agent.needs.energy as i32);
-    scores.insert("socialize".to_string(), 100 - agent.needs.social as i32);
-    scores.insert("relocate".to_string(), 100 - agent.needs.comfort as i32);
-    scores.insert(
-        "work".to_string(),
-        if agent.credits < 40 { 80 } else { 30 } + agent.mood / 10,
-    );
+    let eat = 100 - i32::from(agent.needs.hunger);
+    let rest = 100 - i32::from(agent.needs.energy);
+    let socialize = 100 - i32::from(agent.needs.social);
+    let relocate = 100 - i32::from(agent.needs.comfort);
+    let work = if agent.credits < 40 { 80 } else { 30 } + agent.mood / 10;
 
+    let mut scores = HashMap::new();
+    scores.insert("eat".to_string(), eat);
+    scores.insert("rest".to_string(), rest);
+    scores.insert("socialize".to_string(), socialize);
+    scores.insert("relocate".to_string(), relocate);
+    scores.insert("work".to_string(), work);
+
+    // Strictly-greater selection. Equal scores keep the earlier candidate so a
+    // given needs vector always resolves to the same goal. HashMap iteration
+    // is not stable across runs, so it cannot be the tie-break.
     let mut selected = AgentGoal::Work;
     let mut selected_score = i32::MIN;
-    for (k, score) in &scores {
-        if *score > selected_score {
-            selected_score = *score;
-            selected = match k.as_str() {
-                "eat" => AgentGoal::Eat,
-                "rest" => AgentGoal::Rest,
-                "socialize" => AgentGoal::Socialize,
-                "relocate" => AgentGoal::Relocate,
-                _ => AgentGoal::Work,
-            };
+    for (score, goal) in [
+        (eat, AgentGoal::Eat),
+        (rest, AgentGoal::Rest),
+        (socialize, AgentGoal::Socialize),
+        (relocate, AgentGoal::Relocate),
+        (work, AgentGoal::Work),
+    ] {
+        if score > selected_score {
+            selected_score = score;
+            selected = goal;
         }
     }
 
@@ -1618,10 +1641,7 @@ const RECEPTION_PALETTE: &[&str] = &[
     "prop_lpc_bins",
     "prop_lpc_office_portraits",
 ];
-const UPGRADE_PALETTE: &[&str] = &[
-    "prop_lpc_tv_widescreen",
-    "prop_lpc_desk_ornate",
-];
+const UPGRADE_PALETTE: &[&str] = &["prop_lpc_tv_widescreen", "prop_lpc_desk_ornate"];
 
 fn max_slots_for_stage(floor_type: FloorType, stage: FloorStage) -> u8 {
     match (floor_type, stage) {
@@ -1755,7 +1775,10 @@ fn upgrade_tier_from_scripts(scripts: &[ManagerScript]) -> u8 {
 
 fn layout_bias_from_scripts(scripts: &[ManagerScript]) -> Option<(f32, f32)> {
     scripts.iter().rev().find_map(|s| match &s.config {
-        ScriptConfig::LayoutBias { work_pct, break_pct } => Some((*work_pct, *break_pct)),
+        ScriptConfig::LayoutBias {
+            work_pct,
+            break_pct,
+        } => Some((*work_pct, *break_pct)),
         _ => None,
     })
 }
@@ -1793,7 +1816,7 @@ pub fn tick_floor_manager(floor: &mut Floor, tick: u64, new_events: &mut Vec<Sim
         if !placeable_zones.is_empty() {
             // Round-robin biased toward WorkArea
             let furniture_count = mgr.layout.furniture.len();
-            let zone_idx = if furniture_count % 3 == 0 || furniture_count % 3 == 1 {
+            let zone_idx = if furniture_count.is_multiple_of(3) || furniture_count % 3 == 1 {
                 // WorkArea bias: pick first non-corridor (usually WorkArea)
                 0
             } else {
@@ -1807,29 +1830,27 @@ pub fn tick_floor_manager(floor: &mut Floor, tick: u64, new_events: &mut Vec<Sim
                 let asset_idx = furniture_count % palette.len();
                 let asset_id = palette[asset_idx].to_string();
                 let zone_cells = cells_in_zone(zone);
-                let occupied: std::collections::HashSet<(u8, u8)> = mgr
-                    .layout
-                    .furniture
-                    .iter()
-                    .map(|f| (f.x, f.y))
-                    .collect();
+                let occupied: std::collections::HashSet<(u8, u8)> =
+                    mgr.layout.furniture.iter().map(|f| (f.x, f.y)).collect();
                 let mut free_cells: Vec<(u8, u8)> = zone_cells
                     .into_iter()
                     .filter(|c| !occupied.contains(c))
                     .collect();
                 // Pick the cell that maximizes minimum distance from existing furniture
-                if !free_cells.is_empty() {
-                    if !occupied.is_empty() {
-                        free_cells.sort_by(|a, b| {
-                            let a_min = occupied.iter().map(|o| {
-                                u16::from(a.0.abs_diff(o.0)) + u16::from(a.1.abs_diff(o.1))
-                            }).min().unwrap_or(u16::MAX);
-                            let b_min = occupied.iter().map(|o| {
-                                u16::from(b.0.abs_diff(o.0)) + u16::from(b.1.abs_diff(o.1))
-                            }).min().unwrap_or(u16::MAX);
-                            b_min.cmp(&a_min)
-                        });
-                    }
+                if !free_cells.is_empty() && !occupied.is_empty() {
+                    free_cells.sort_by(|a, b| {
+                        let a_min = occupied
+                            .iter()
+                            .map(|o| u16::from(a.0.abs_diff(o.0)) + u16::from(a.1.abs_diff(o.1)))
+                            .min()
+                            .unwrap_or(u16::MAX);
+                        let b_min = occupied
+                            .iter()
+                            .map(|o| u16::from(b.0.abs_diff(o.0)) + u16::from(b.1.abs_diff(o.1)))
+                            .min()
+                            .unwrap_or(u16::MAX);
+                        b_min.cmp(&a_min)
+                    });
                 }
                 if let Some(&(x, y)) = free_cells.first() {
                     mgr.placement_budget -= FURNITURE_COST;
@@ -1879,14 +1900,14 @@ pub fn tick_floor_manager(floor: &mut Floor, tick: u64, new_events: &mut Vec<Sim
             .retain(|f| f.zone != ZoneKind::BreakRoom);
         if had_break && (mgr.layout.furniture.len() as u8) < mgr.layout.max_slots {
             // Add a desk in the work area
-            if let Some(work_zone) = mgr.layout.zones.iter().find(|z| z.kind == ZoneKind::WorkArea)
+            if let Some(work_zone) = mgr
+                .layout
+                .zones
+                .iter()
+                .find(|z| z.kind == ZoneKind::WorkArea)
             {
-                let occupied: std::collections::HashSet<(u8, u8)> = mgr
-                    .layout
-                    .furniture
-                    .iter()
-                    .map(|f| (f.x, f.y))
-                    .collect();
+                let occupied: std::collections::HashSet<(u8, u8)> =
+                    mgr.layout.furniture.iter().map(|f| (f.x, f.y)).collect();
                 let free: Vec<(u8, u8)> = cells_in_zone(work_zone)
                     .into_iter()
                     .filter(|c| !occupied.contains(c))
@@ -2040,7 +2061,7 @@ pub fn operator_review(state: &mut TowerState) {
 }
 
 pub fn apply_pending_directives(state: &mut TowerState) {
-    let directives: Vec<OperatorDirective> = state.operator.pending_directives.drain(..).collect();
+    let directives = std::mem::take(&mut state.operator.pending_directives);
     let tick = state.tick;
     for directive in directives {
         let Some(floor) = state
@@ -2051,11 +2072,17 @@ pub fn apply_pending_directives(state: &mut TowerState) {
             continue;
         };
         match directive.action {
-            DirectiveAction::SetLayoutBias { work_pct, break_pct } => {
+            DirectiveAction::SetLayoutBias {
+                work_pct,
+                break_pct,
+            } => {
                 floor.manager.scripts.push(ManagerScript {
                     script_id: format!("layout_bias_{}", tick),
                     installed_at_tick: tick,
-                    config: ScriptConfig::LayoutBias { work_pct, break_pct },
+                    config: ScriptConfig::LayoutBias {
+                        work_pct,
+                        break_pct,
+                    },
                 });
             }
             DirectiveAction::InstallScript { script_id, config } => {
@@ -2100,6 +2127,344 @@ pub fn apply_pending_directives(state: &mut TowerState) {
             }
         }
     }
+}
+
+fn goal_label(goal: AgentGoal) -> &'static str {
+    match goal {
+        AgentGoal::Work => "work",
+        AgentGoal::Eat => "eat",
+        AgentGoal::Rest => "rest",
+        AgentGoal::Socialize => "socialize",
+        AgentGoal::Relocate => "relocate",
+    }
+}
+
+fn zone_label(kind: ZoneKind) -> &'static str {
+    match kind {
+        ZoneKind::WorkArea => "work_area",
+        ZoneKind::BreakRoom => "break_room",
+        ZoneKind::Reception => "reception",
+        ZoneKind::Utility => "utility",
+        ZoneKind::Corridor => "corridor",
+    }
+}
+
+fn pipeline_kind_label(kind: PipelineKind) -> &'static str {
+    match kind {
+        PipelineKind::CiCd => "ci_cd",
+        PipelineKind::MailRoom => "mail_room",
+        PipelineKind::FoodService => "food_service",
+    }
+}
+
+fn lease_status_label(status: LeaseStatus) -> &'static str {
+    match status {
+        LeaseStatus::Active => "active",
+        LeaseStatus::Delinquent => "delinquent",
+        LeaseStatus::Evicted => "evicted",
+    }
+}
+
+fn script_config_token(config: &ScriptConfig) -> String {
+    match config {
+        ScriptConfig::LayoutBias {
+            work_pct,
+            break_pct,
+        } => format!(
+            "layout_bias:{:08x}:{:08x}",
+            work_pct.to_bits(),
+            break_pct.to_bits()
+        ),
+        ScriptConfig::PipelineInstall { pipeline_kind } => {
+            format!("pipeline_install:{}", pipeline_kind_label(*pipeline_kind))
+        }
+        ScriptConfig::FurnitureUpgrade { tier } => format!("furniture_upgrade:{tier}"),
+    }
+}
+
+fn directive_token(action: &DirectiveAction) -> String {
+    match action {
+        DirectiveAction::SetLayoutBias {
+            work_pct,
+            break_pct,
+        } => format!(
+            "set_layout_bias:{:08x}:{:08x}",
+            work_pct.to_bits(),
+            break_pct.to_bits()
+        ),
+        DirectiveAction::InstallScript { script_id, config } => {
+            format!("install_script:{script_id}:{}", script_config_token(config))
+        }
+        DirectiveAction::InstallPipeline { kind } => {
+            format!("install_pipeline:{}", pipeline_kind_label(*kind))
+        }
+        DirectiveAction::UpgradeFurniture => "upgrade_furniture".to_string(),
+    }
+}
+
+fn fnv1a64(bytes: &[u8], offset: u64) -> u64 {
+    let mut hash = offset;
+    for byte in bytes {
+        hash ^= u64::from(*byte);
+        hash = hash.wrapping_mul(0x0000_0100_0000_01B3);
+    }
+    hash
+}
+
+fn floor_index(state: &TowerState, id: Uuid) -> String {
+    state
+        .floors
+        .iter()
+        .position(|floor| floor.id == id)
+        .map(|index| index.to_string())
+        .unwrap_or_else(|| "?".to_string())
+}
+
+/// Canonical, order-stable encoding of the seeded simulation state.
+///
+/// Random UUIDs and wall-clock timestamps are omitted. Entity ids are replaced
+/// with creation-order indexes. Alert order is sorted because dedupe stores
+/// them in a `HashMap`, and that order does not feed later ticks.
+fn canonical_state(state: &TowerState) -> String {
+    let mut out = String::new();
+    out.push_str(&format!("tower={}\n", state.tower_id));
+    out.push_str(&format!("tick={}\n", state.tick));
+    out.push_str(&format!(
+        "next_floor_build_tick={}\n",
+        state.next_floor_build_tick
+    ));
+    out.push_str(&format!("expansion_count={}\n", state.expansion_count));
+    out.push_str(&format!(
+        "economy={},{},{},{}\n",
+        state.economy.wages_paid,
+        state.economy.rent_collected,
+        state.economy.service_spend,
+        state.economy.unmet_need_penalty
+    ));
+    out.push_str(&format!(
+        "operator={},{},{}\n",
+        state.operator.budget,
+        state.operator.next_review_tick,
+        state
+            .operator
+            .pending_directives
+            .iter()
+            .map(|directive| format!(
+                "{}:{}@{}",
+                floor_index(state, directive.target_floor_id),
+                directive_token(&directive.action),
+                directive.issued_at_tick
+            ))
+            .collect::<Vec<_>>()
+            .join(";")
+    ));
+
+    let mut alerts: Vec<String> = state
+        .alerts
+        .iter()
+        .map(|alert| format!("{}|{}|{}", alert.severity, alert.category, alert.message))
+        .collect();
+    alerts.sort();
+    out.push_str("alerts=");
+    out.push_str(&alerts.join(";"));
+    out.push('\n');
+
+    let mut policies: Vec<String> = state
+        .policies
+        .iter()
+        .map(|policy| {
+            format!(
+                "{}:{:08x}:{}:{}",
+                policy.key,
+                policy.value.to_bits(),
+                policy.created_at_tick,
+                policy
+                    .expires_at_tick
+                    .map(|tick| tick.to_string())
+                    .unwrap_or_else(|| "-".to_string())
+            )
+        })
+        .collect();
+    policies.sort();
+    out.push_str("policies=");
+    out.push_str(&policies.join(";"));
+    out.push('\n');
+
+    let mut signals: Vec<String> = state
+        .active_signals
+        .iter()
+        .map(|signal| {
+            format!(
+                "{}|{}|{:08x}|{}|{}",
+                signal.signal_type,
+                signal.target_zone,
+                signal.intensity.to_bits(),
+                signal.created_at_tick,
+                signal.expires_at_tick
+            )
+        })
+        .collect();
+    signals.sort();
+    out.push_str("signals=");
+    out.push_str(&signals.join(";"));
+    out.push('\n');
+
+    for (index, agent) in state.agents.iter().enumerate() {
+        let lease = agent
+            .lease_id
+            .and_then(|lease_id| state.leases.get(&lease_id));
+        let lease_token = match lease {
+            Some(lease) => format!(
+                "{}:{}:{}",
+                lease_status_label(lease.status),
+                lease.rent,
+                lease.due_tick
+            ),
+            None => "none".to_string(),
+        };
+        out.push_str(&format!(
+            "agent={index},{},{},{},{},{},{},{},{},{},{},{}\n",
+            agent.role,
+            agent.credits,
+            agent.needs.hunger,
+            agent.needs.energy,
+            agent.needs.social,
+            agent.needs.comfort,
+            agent.mood,
+            goal_label(agent.current_goal),
+            floor_index(state, agent.location_floor_id),
+            agent.debt_ticks,
+            lease_token
+        ));
+    }
+
+    for (index, floor) in state.floors.iter().enumerate() {
+        let furniture = floor
+            .manager
+            .layout
+            .furniture
+            .iter()
+            .map(|item| {
+                format!(
+                    "{}@{},{}:{}:{}",
+                    item.asset_id,
+                    item.x,
+                    item.y,
+                    zone_label(item.zone),
+                    item.placed_at_tick
+                )
+            })
+            .collect::<Vec<_>>()
+            .join(";");
+        let zones = floor
+            .manager
+            .layout
+            .zones
+            .iter()
+            .map(|zone| {
+                format!(
+                    "{}:{},{}-{},{}",
+                    zone_label(zone.kind),
+                    zone.x_min,
+                    zone.y_min,
+                    zone.x_max,
+                    zone.y_max
+                )
+            })
+            .collect::<Vec<_>>()
+            .join(";");
+        let scripts = floor
+            .manager
+            .scripts
+            .iter()
+            .map(|script| {
+                format!(
+                    "{}@{}:{}",
+                    script.script_id,
+                    script.installed_at_tick,
+                    script_config_token(&script.config)
+                )
+            })
+            .collect::<Vec<_>>()
+            .join(";");
+        let pipeline = floor
+            .manager
+            .pipeline
+            .as_ref()
+            .map(|pipeline| {
+                let stages = pipeline
+                    .stages
+                    .iter()
+                    .map(|stage| {
+                        format!(
+                            "{}:{}@{},{}:{}",
+                            stage.name, stage.asset_id, stage.x, stage.y, stage.duration_ticks
+                        )
+                    })
+                    .collect::<Vec<_>>()
+                    .join(",");
+                format!(
+                    "{}:{}:{}:{}:[{stages}]",
+                    pipeline_kind_label(pipeline.kind),
+                    pipeline.current_stage_idx,
+                    pipeline.progress_ticks,
+                    pipeline.total_completions
+                )
+            })
+            .unwrap_or_else(|| "-".to_string());
+        let fx = floor
+            .manager
+            .construction_fx
+            .iter()
+            .map(|fx| format!("{},{}@{}", fx.x, fx.y, fx.expires_at_tick))
+            .collect::<Vec<_>>()
+            .join(";");
+        out.push_str(&format!(
+            "floor={index},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n",
+            floor
+                .name
+                .chars()
+                .map(|ch| if ch == ',' || ch == '\n' { ' ' } else { ch })
+                .collect::<String>(),
+            floor_type_ref_label(floor.floor_type),
+            floor.template_id,
+            floor_stage_label(floor.stage),
+            floor.stage_score,
+            floor.base_capacity,
+            floor.base_upkeep,
+            floor.base_rent_curve,
+            floor.capacity,
+            floor.occupancy,
+            floor.upkeep,
+            floor.rent_curve,
+            floor.manager.age_ticks,
+            floor.manager.placement_budget,
+            floor.manager.layout.max_slots,
+            floor.tilemap.width,
+            floor.tilemap.height,
+            floor.tilemap.tiles.join(",")
+        ));
+        out.push_str(&format!(
+            "floor_layout={index}|{furniture}|{zones}|{scripts}|{pipeline}|{fx}\n"
+        ));
+    }
+
+    out
+}
+
+/// Stable fingerprint of the seed-driven simulation state.
+///
+/// Two towers initialized with the same seed and advanced the same number of
+/// ticks produce the same fingerprint. The digest covers needs, economy,
+/// goals, leases, floor progression, furniture, scripts, and pipelines. It
+/// leaves out random UUIDs and `Utc::now()` timestamps, which do not feed
+/// later ticks.
+pub fn state_fingerprint(state: &TowerState) -> String {
+    let canonical = canonical_state(state);
+    let bytes = canonical.as_bytes();
+    let high = fnv1a64(bytes, 0xcbf2_9ce4_8422_2325);
+    let low = fnv1a64(bytes, 0x8422_2325_cbf2_9ce4);
+    format!("{high:016x}{low:016x}")
 }
 
 #[cfg(test)]
@@ -2161,11 +2526,11 @@ mod tests {
         let first = tower.agents.first_mut().expect("agent exists");
         first.credits = 0;
         first.debt_ticks = 2;
-        if let Some(lease_id) = first.lease_id {
-            if let Some(lease) = tower.leases.get_mut(&lease_id) {
-                lease.due_tick = 1;
-                lease.status = LeaseStatus::Delinquent;
-            }
+        if let Some(lease_id) = first.lease_id
+            && let Some(lease) = tower.leases.get_mut(&lease_id)
+        {
+            lease.due_tick = 1;
+            lease.status = LeaseStatus::Delinquent;
         }
 
         let tick = run_tick(&mut tower);
@@ -2414,7 +2779,10 @@ mod tests {
         let tilemap = build_floor_tilemap(FloorType::Commercial);
         let walkable = walkable_cells_for_tilemap(&tilemap);
         let zones = compute_zones(&tilemap, &walkable, None);
-        assert!(zones.len() >= 3, "should have at least WorkArea, BreakRoom, Reception");
+        assert!(
+            zones.len() >= 3,
+            "should have at least WorkArea, BreakRoom, Reception"
+        );
         assert!(
             zones.iter().any(|z| z.kind == ZoneKind::WorkArea),
             "missing WorkArea zone"
@@ -2491,9 +2859,12 @@ mod tests {
             run_tick(&mut tower);
         }
         let floor = tower.floors.iter().find(|f| f.id == floor_id).unwrap();
-        let has_upgrade_item = floor.manager.layout.furniture.iter().any(|f| {
-            UPGRADE_PALETTE.contains(&f.asset_id.as_str())
-        });
+        let has_upgrade_item = floor
+            .manager
+            .layout
+            .furniture
+            .iter()
+            .any(|f| UPGRADE_PALETTE.contains(&f.asset_id.as_str()));
         assert!(has_upgrade_item, "upgraded palette items should be placed");
     }
 
@@ -2517,7 +2888,10 @@ mod tests {
         for tick in 1..=20 {
             tick_pipeline(&mut pipeline, tick, "test", floor_id, &mut events);
         }
-        assert_eq!(pipeline.total_completions, 1, "pipeline should complete one cycle");
+        assert_eq!(
+            pipeline.total_completions, 1,
+            "pipeline should complete one cycle"
+        );
         assert!(
             events.iter().any(|e| e.category == "pipeline_completed"),
             "should emit pipeline_completed event"
@@ -2530,6 +2904,303 @@ mod tests {
         let tower = initialize_tower(42);
         // At tick 0, no furniture placed yet - legacy path should work
         // This test just ensures the tower initializes cleanly
-        assert!(tower.floors.iter().all(|f| f.manager.layout.furniture.is_empty()));
+        assert!(
+            tower
+                .floors
+                .iter()
+                .all(|f| f.manager.layout.furniture.is_empty())
+        );
+    }
+
+    #[test]
+    fn equal_scores_keep_the_earlier_goal() {
+        let agent = Agent {
+            id: Uuid::new_v4(),
+            role: "worker".to_string(),
+            credits: 200,
+            needs: Needs {
+                hunger: 63,
+                energy: 63,
+                social: 63,
+                comfort: 63,
+            },
+            mood: 70,
+            current_goal: AgentGoal::Work,
+            location_floor_id: Uuid::new_v4(),
+            lease_id: None,
+            debt_ticks: 0,
+        };
+        let trace = choose_goal(&agent);
+        assert_eq!(trace.priority_scores.get("eat"), Some(&37));
+        assert_eq!(trace.priority_scores.get("work"), Some(&37));
+        assert_eq!(trace.decision, AgentGoal::Eat);
+        assert_eq!(choose_goal(&agent).decision, trace.decision);
+    }
+
+    #[test]
+    fn expansion_tie_break_prefers_the_higher_floor_rank() {
+        let mut tower = initialize_tower(1);
+        for floor in &mut tower.floors {
+            floor.stage = FloorStage::Overloaded;
+        }
+        assert_eq!(next_expansion_floor_type(&tower), FloorType::Utility);
+        assert_eq!(
+            next_expansion_floor_type(&tower),
+            next_expansion_floor_type(&tower)
+        );
+    }
+
+    fn simulate(seed: u64, ticks: u32) -> TowerState {
+        let mut state = initialize_tower(seed);
+        for _ in 0..ticks {
+            run_tick(&mut state);
+        }
+        state
+    }
+
+    fn assert_same_seed(seed: u64, ticks: u32) {
+        let left = simulate(seed, ticks);
+        let right = simulate(seed, ticks);
+        let left_state = canonical_state(&left);
+        let right_state = canonical_state(&right);
+        if left_state != right_state {
+            let mismatch = left_state
+                .lines()
+                .zip(right_state.lines())
+                .enumerate()
+                .find(|(_, (lhs, rhs))| lhs != rhs);
+            panic!("seed {seed} diverged after {ticks} ticks at {mismatch:?}");
+        }
+        assert_eq!(state_fingerprint(&left), state_fingerprint(&right));
+        assert_eq!(
+            state_fingerprint(&left),
+            state_fingerprint(&left),
+            "fingerprint must be a pure function of state"
+        );
+        check_invariants(&left, u64::from(ticks)).unwrap();
+    }
+
+    #[test]
+    fn same_seed_matches_after_n_ticks() {
+        for (seed, ticks) in [
+            (0u64, 1u32),
+            (1, 100),
+            (7, 25),
+            (42, 100),
+            (99, 200),
+            (u64::MAX, 40),
+        ] {
+            assert_same_seed(seed, ticks);
+        }
+    }
+
+    #[test]
+    fn pinned_state_fingerprints() {
+        let cases = [
+            (1u64, 50u32, "9e734df1a4c482fe240d75b558ebcb8b"),
+            (42, 100, "9bae7cbb50d2b12a160a60a9514e7733"),
+            (7, 25, "0dea91f4254303582fdfcc926951ec29"),
+            (99, 200, "592a3ff115e4ae3ca7bb7e42b047e7b9"),
+        ];
+        for (seed, ticks, expected) in cases {
+            let actual = state_fingerprint(&simulate(seed, ticks));
+            assert_eq!(actual, expected, "seed {seed} after {ticks} ticks");
+        }
+    }
+
+    #[test]
+    fn different_seeds_diverge() {
+        let left = state_fingerprint(&simulate(1, 30));
+        let right = state_fingerprint(&simulate(2, 30));
+        assert_ne!(left, right);
+    }
+
+    fn check_invariants(state: &TowerState, expected_tick: u64) -> Result<(), String> {
+        if state.agents.len() != MAX_AGENTS {
+            return Err(format!("agent count {}", state.agents.len()));
+        }
+        if state.tick != expected_tick {
+            return Err(format!("tick {} != {expected_tick}", state.tick));
+        }
+        if !(3..=8).contains(&state.floors.len()) {
+            return Err(format!("floor count {}", state.floors.len()));
+        }
+        if state.economy.wages_paid < 0
+            || state.economy.rent_collected < 0
+            || state.economy.service_spend < 0
+            || state.economy.unmet_need_penalty < 0
+        {
+            return Err(format!("negative economy {:?}", state.economy));
+        }
+
+        let mut agent_ids = std::collections::HashSet::new();
+        let mut lease_ids = std::collections::HashSet::new();
+        let floor_ids: std::collections::HashSet<Uuid> =
+            state.floors.iter().map(|floor| floor.id).collect();
+        for agent in &state.agents {
+            if !agent_ids.insert(agent.id) {
+                return Err(format!("duplicate agent {}", agent.id));
+            }
+            if !floor_ids.contains(&agent.location_floor_id) {
+                return Err(format!("agent {} is on an unknown floor", agent.id));
+            }
+            if agent.needs.hunger > 100
+                || agent.needs.energy > 100
+                || agent.needs.social > 100
+                || agent.needs.comfort > 100
+            {
+                return Err(format!("needs out of range for {}", agent.id));
+            }
+            if !(0..=100).contains(&agent.mood) {
+                return Err(format!("mood {} for {}", agent.mood, agent.id));
+            }
+            if agent.credits < 0 {
+                return Err(format!(
+                    "negative credits {} for {}",
+                    agent.credits, agent.id
+                ));
+            }
+            if agent.debt_ticks > 3 {
+                return Err(format!("debt ticks {} for {}", agent.debt_ticks, agent.id));
+            }
+            let Some(lease_id) = agent.lease_id else {
+                return Err(format!("agent {} has no lease", agent.id));
+            };
+            if !lease_ids.insert(lease_id) {
+                return Err(format!("duplicate lease {lease_id}"));
+            }
+            let Some(lease) = state.leases.get(&lease_id) else {
+                return Err(format!("missing lease {lease_id}"));
+            };
+            if lease.agent_id != agent.id {
+                return Err(format!("lease {lease_id} points at the wrong agent"));
+            }
+            if lease.rent <= 0 {
+                return Err(format!("non-positive rent on {lease_id}"));
+            }
+            if lease.status == LeaseStatus::Evicted && agent.debt_ticks < 3 {
+                return Err(format!(
+                    "evicted agent {} has debt {}",
+                    agent.id, agent.debt_ticks
+                ));
+            }
+        }
+
+        for floor in &state.floors {
+            let occupants = state
+                .agents
+                .iter()
+                .filter(|agent| agent.location_floor_id == floor.id)
+                .count() as u16;
+            if floor.occupancy != occupants {
+                return Err(format!(
+                    "floor {} occupancy {} != {occupants}",
+                    floor.name, floor.occupancy
+                ));
+            }
+            if floor.capacity < 1 || floor.upkeep < 1 || floor.rent_curve < 1 {
+                return Err(format!(
+                    "floor {} has a non-positive economy stat",
+                    floor.name
+                ));
+            }
+            if floor.stage_score > 100 {
+                return Err(format!(
+                    "stage score {} on {}",
+                    floor.stage_score, floor.name
+                ));
+            }
+            if floor.stage != stage_from_score(floor.stage_score) {
+                return Err(format!(
+                    "floor {} stage {:?} does not match score {}",
+                    floor.name, floor.stage, floor.stage_score
+                ));
+            }
+            if floor.template_id != default_floor_template_id(floor.floor_type, floor.stage) {
+                return Err(format!(
+                    "floor {} template {} != expected",
+                    floor.name, floor.template_id
+                ));
+            }
+            if floor.template_id.trim().is_empty() {
+                return Err(format!("floor {} has an empty template", floor.name));
+            }
+            let max_slots = usize::from(max_slots_for_stage(floor.floor_type, floor.stage));
+            if floor.manager.layout.furniture.len() > max_slots {
+                return Err(format!(
+                    "floor {} has {} furniture, max {max_slots}",
+                    floor.name,
+                    floor.manager.layout.furniture.len()
+                ));
+            }
+            if floor.manager.placement_budget > 30 {
+                return Err(format!(
+                    "floor {} budget {}",
+                    floor.name, floor.manager.placement_budget
+                ));
+            }
+            if floor.manager.age_ticks > state.tick {
+                return Err(format!(
+                    "floor {} age {} exceeds tick {}",
+                    floor.name, floor.manager.age_ticks, state.tick
+                ));
+            }
+            for item in &floor.manager.layout.furniture {
+                if item.x >= floor.tilemap.width || item.y >= floor.tilemap.height {
+                    return Err(format!(
+                        "furniture on {} is outside the tilemap at {},{}",
+                        floor.name, item.x, item.y
+                    ));
+                }
+            }
+            if let Some(pipeline) = &floor.manager.pipeline {
+                if pipeline.stages.is_empty() {
+                    return Err(format!("floor {} has an empty pipeline", floor.name));
+                }
+                if pipeline.current_stage_idx >= pipeline.stages.len() {
+                    return Err(format!(
+                        "floor {} pipeline index is past the end",
+                        floor.name
+                    ));
+                }
+                let duration = pipeline.stages[pipeline.current_stage_idx].duration_ticks;
+                if pipeline.progress_ticks >= duration {
+                    return Err(format!(
+                        "floor {} pipeline progress {} >= {duration}",
+                        floor.name, pipeline.progress_ticks
+                    ));
+                }
+            }
+            let tile_len = usize::from(floor.tilemap.width) * usize::from(floor.tilemap.height);
+            if floor.tilemap.tiles.len() != tile_len || tile_len == 0 {
+                return Err(format!("floor {} tilemap has the wrong length", floor.name));
+            }
+        }
+
+        let metrics = compute_metrics(state);
+        if !metrics.tower_health.is_finite()
+            || !(0.0..=100.0).contains(&metrics.tower_health)
+            || !metrics.avg_need_satisfaction.is_finite()
+            || !metrics.liquidity.is_finite()
+            || !metrics.occupancy.is_finite()
+        {
+            return Err(format!("non-finite metrics at tick {}", state.tick));
+        }
+        Ok(())
+    }
+
+    use proptest::prelude::*;
+
+    proptest! {
+        #![proptest_config(ProptestConfig::with_cases(32))]
+
+        #[test]
+        fn seeded_runs_match_and_hold_invariants(seed: u64, ticks in 0u32..20) {
+            let left = simulate(seed, ticks);
+            let right = simulate(seed, ticks);
+            prop_assert_eq!(state_fingerprint(&left), state_fingerprint(&right));
+            check_invariants(&left, u64::from(ticks)).unwrap();
+            check_invariants(&right, u64::from(ticks)).unwrap();
+        }
     }
 }

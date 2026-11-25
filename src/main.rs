@@ -1,10 +1,19 @@
-mod assets;
-mod ops;
-mod public_assets;
-mod sim;
-mod storage;
-
-use assets::{AssetService, GenerateAssetRequest};
+use agent_tower_sim::{
+    assets::{self, AssetService, GenerateAssetRequest},
+    ops::{
+        CODING_DEPARTMENT, OpenClawEvent, OpsState, compute_floor_prestige, compute_rankings,
+        get_department_state, process_event,
+    },
+    public_assets,
+    sim::{
+        self, AgentGoal, DEFAULT_TOWER_ID, FloorType, MetricsPoint, RuntimeAssetBinding,
+        RuntimeAssetMappingDeltas, RuntimeAssetMappings, RuntimeFloorPlacement,
+        RuntimeFloorPlacementDelta, RuntimeFloorPlacementDeltas, RuntimeFloorPlacements,
+        RuntimePlacedAsset, SimEvent, StreamPayload, TickResult, TowerState, apply_policy,
+        broadcast_signal, ensure_floor_tilemaps, initialize_tower, run_tick,
+    },
+    storage::Storage,
+};
 use axum::{
     Json, Router,
     extract::{
@@ -16,24 +25,12 @@ use axum::{
     routing::{get, post},
 };
 use chrono::{DateTime, Utc};
-use ops::{
-    CODING_DEPARTMENT, OpenClawEvent, OpsState, compute_floor_prestige, compute_rankings,
-    get_department_state, process_event,
-};
 use serde::{Deserialize, Serialize};
-use sim::{
-    AgentGoal, DEFAULT_TOWER_ID, FloorType, MetricsPoint, RuntimeAssetBinding,
-    RuntimeAssetMappingDeltas, RuntimeAssetMappings, RuntimeFloorPlacement,
-    RuntimeFloorPlacementDelta, RuntimeFloorPlacementDeltas, RuntimeFloorPlacements,
-    RuntimePlacedAsset, SimEvent, StreamPayload, TickResult, TowerState, apply_policy,
-    broadcast_signal, ensure_floor_tilemaps, initialize_tower, run_tick,
-};
 use std::{
     collections::{HashMap, HashSet},
     sync::Arc,
     time::{Duration, Instant},
 };
-use storage::Storage;
 use tokio::sync::{Mutex, RwLock, broadcast};
 use tower_http::cors::CorsLayer;
 use tracing::{error, info};
@@ -729,8 +726,10 @@ fn build_runtime_floor_placements_with_previous(
             } else {
                 upper_cells
             };
-            let prop_seed =
-                (world.tick << 20) ^ ((idx as u64) << 12) ^ (u64::from(width) << 6) ^ u64::from(height);
+            let prop_seed = (world.tick << 20)
+                ^ ((idx as u64) << 12)
+                ^ (u64::from(width) << 6)
+                ^ u64::from(height);
             let prop_slots = pick_cells_with_spacing(
                 &prop_candidates,
                 prop_assets.len(),
@@ -739,7 +738,8 @@ fn build_runtime_floor_placements_with_previous(
             );
             occupied = prop_slots.iter().copied().collect();
             prop_placements = Vec::with_capacity(prop_assets.len());
-            for (slot, (asset_id, (x, y))) in prop_assets.iter().zip(prop_slots.iter()).enumerate() {
+            for (slot, (asset_id, (x, y))) in prop_assets.iter().zip(prop_slots.iter()).enumerate()
+            {
                 prop_placements.push(RuntimePlacedAsset {
                     entity_id: format!("{}:prop:{slot}", floor.id),
                     entity_kind: "prop".to_string(),
@@ -870,17 +870,17 @@ fn build_runtime_floor_placements_with_previous(
             });
         }
         // Pipeline active stage spark FX
-        if let Some(ref pipeline) = floor.manager.pipeline {
-            if let Some(active_stage) = pipeline.stages.get(pipeline.current_stage_idx) {
-                fx_placements.push(RuntimePlacedAsset {
-                    entity_id: format!("{}:fx:pipeline_active", floor.id),
-                    entity_kind: "fx".to_string(),
-                    label: format!("{} pipeline active: {}", floor.name, active_stage.name),
-                    asset_id: "fx_spark_flicker".to_string(),
-                    x: active_stage.x,
-                    y: active_stage.y,
-                });
-            }
+        if let Some(ref pipeline) = floor.manager.pipeline
+            && let Some(active_stage) = pipeline.stages.get(pipeline.current_stage_idx)
+        {
+            fx_placements.push(RuntimePlacedAsset {
+                entity_id: format!("{}:fx:pipeline_active", floor.id),
+                entity_kind: "fx".to_string(),
+                label: format!("{} pipeline active: {}", floor.name, active_stage.name),
+                asset_id: "fx_spark_flicker".to_string(),
+                x: active_stage.x,
+                y: active_stage.y,
+            });
         }
 
         floors.push(RuntimeFloorPlacement {
@@ -1150,7 +1150,7 @@ fn floor_prop_assets_for_placement(floor: &sim::Floor, tick: u64, idx: usize) ->
 }
 
 fn max_props_for_floor(walkable_tiles: usize) -> usize {
-    (walkable_tiles / 18).max(1).min(4)
+    (walkable_tiles / 18).clamp(1, 4)
 }
 
 fn max_visible_agents_for_floor(floor_type: FloorType, walkable_tiles: usize) -> usize {
@@ -1338,8 +1338,12 @@ fn floor_tile_is_walkable_with_clearance(
     }
     let x_min = x.saturating_sub(clearance_tiles);
     let y_min = y.saturating_sub(clearance_tiles);
-    let x_max = x.saturating_add(clearance_tiles).min(width.saturating_sub(1));
-    let y_max = y.saturating_add(clearance_tiles).min(height.saturating_sub(1));
+    let x_max = x
+        .saturating_add(clearance_tiles)
+        .min(width.saturating_sub(1));
+    let y_max = y
+        .saturating_add(clearance_tiles)
+        .min(height.saturating_sub(1));
     for ny in y_min..=y_max {
         for nx in x_min..=x_max {
             if floor_tile_at(tilemap, nx, ny).is_some_and(|tile| tile.starts_with("tile_wall_")) {
@@ -1367,6 +1371,9 @@ fn preferred_agent_row(goal: AgentGoal, height: u8) -> u8 {
     }
 }
 
+type AgentPlacementKey = (u8, u16, u64, u8, u8);
+type RankedAgentCell = (AgentPlacementKey, (u8, u8));
+
 fn pick_agent_cell(
     candidates: &[(u8, u8)],
     occupied: &HashSet<(u8, u8)>,
@@ -1378,9 +1385,9 @@ fn pick_agent_cell(
         return (0, 0);
     }
     let seed = agent_seed(agent, 0);
-    let mut best_any: Option<((u8, u16, u64, u8, u8), (u8, u8))> = None;
-    let mut best_free: Option<((u8, u16, u64, u8, u8), (u8, u8))> = None;
-    let mut best_free_clear: Option<((u8, u16, u64, u8, u8), (u8, u8))> = None;
+    let mut best_any: Option<RankedAgentCell> = None;
+    let mut best_free: Option<RankedAgentCell> = None;
+    let mut best_free_clear: Option<RankedAgentCell> = None;
 
     for (slot, (x, y)) in candidates.iter().copied().enumerate() {
         let crowding = occupied
@@ -1429,7 +1436,7 @@ fn should_reposition_agent(
     if matches!(agent.current_goal, AgentGoal::Relocate) {
         return true;
     }
-    (agent_seed(agent, 0) + tick) % AGENT_REPOSITION_CADENCE_TICKS == 0
+    (agent_seed(agent, 0) + tick).is_multiple_of(AGENT_REPOSITION_CADENCE_TICKS)
 }
 
 fn requires_immediate_floor_transition(agent: &sim::Agent) -> bool {
@@ -1441,7 +1448,7 @@ fn requires_immediate_floor_transition(agent: &sim::Agent) -> bool {
 
 fn should_allow_optional_floor_transition(agent: &sim::Agent, tick: u64) -> bool {
     !requires_immediate_floor_transition(agent)
-        && (agent_seed(agent, 2) + tick) % AGENT_FLOOR_TRANSITION_CADENCE_TICKS == 0
+        && (agent_seed(agent, 2) + tick).is_multiple_of(AGENT_FLOOR_TRANSITION_CADENCE_TICKS)
 }
 
 #[cfg(test)]
@@ -1577,7 +1584,7 @@ fn map_agent_asset_id_with_hysteresis(
         };
     }
 
-    if (agent_seed(agent, 1) + tick) % AGENT_VISUAL_HYSTERESIS_CADENCE_TICKS != 0 {
+    if !(agent_seed(agent, 1) + tick).is_multiple_of(AGENT_VISUAL_HYSTERESIS_CADENCE_TICKS) {
         return previous_asset_id;
     }
     raw_asset_id
